@@ -1,0 +1,35 @@
+<!DOCTYPE>
+
+<html lang="ru" xmlns:th="http://thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://thymeleaf.org ">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Altair Schedule</title>
+    <link th:href="@{/styles/style.css}" rel="stylesheet"/>
+</head>
+
+
+<header>
+    <a style="text-align: right" href="/login">Login</a><br>
+    <a style="text-align: right" href="/logout">Logout</a>
+</header>
+<body class="modal">
+<h1>
+    OK
+</h1>
+    <div class="grid">
+        <span>Предмет:</span>   <span th:text="${request.subject}"></span>
+        <span>Домен:</span>   <span th:text="${request.domain.name}"></span>
+        <span>Преподаватель:</span>   <span th:text="${request.tutor}"></span>
+        <span>Ассистент:</span>   <span th:text="${request.assistant}"></span>
+        <span>Аудитория:</span>   <span th:text="${request.classroom}"></span>
+        <span>Дата:</span>   <span th:text="${request.date}"></span>
+        <span>Время:</span>   <span th:text="${request.time}"></span>
+        <span>Длительность:</span>   <span th:text="${request.duration}"></span>
+    </div>
+
+<br><br>
+<a href="/requestLesson">Добавить заявку</a><br>
+<a href="/">Список уроков</a>
+</body>
+</html>

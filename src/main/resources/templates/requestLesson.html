@@ -7,11 +7,16 @@
     <title>Altair Schedule</title>
     <link th:href="@{/styles/style.css}" rel="stylesheet"/>
 </head>
+
+<header>
+    <a style="text-align: right" href="/login">Login</a><br>
+    <a style="text-align: right" href="/logout">Logout</a>
+</header>
 <body class="modal">
 <h1>
     Новое занятие
 </h1>
-<form class="grid" action="#" th:action="@{/addLesson}" method="post" th:object="${lesson}">
+<form class="grid" action="#" th:action="@{/requestLesson}" method="post" th:object="${request}">
     <label>
         Предмет
     </label><input type="text" th:field="*{subject}"/>
@@ -34,17 +39,17 @@
     </label> <input type="text" required th:field="*{classroom}"/>
     <label>
         Дата
-    </label> <input type="date" min="{}" required th:field="*{date}"/>
+    </label> <input type="date" th:min="${now}"  max="9999-01-01" th:value="${now}" required th:field="*{date}"/>
     <label>
         Время
     </label> <input type="time" required th:field="*{time}"/>
     <label>
         Длительность
-    </label> <input type="number" min="1" th:field="*{duration}"/>
+    </label> <input type="number" min="1" value="1" th:field="*{duration}"/>
 
     <input type="submit"/>
-
-    <a href="/getAllLessons">Список уроков</a>
+<br><br>
+    <a href="/">Список уроков</a>
 </form>
 </body>
 </html>

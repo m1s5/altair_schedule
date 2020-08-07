@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <title>Altair Schedule</title>
 </head>
+
+<header>
+    <a style="text-align: right" href="/login">Login</a><br>
+    <a style="text-align: right" href="/logout">Logout</a>
+</header>
 <body>
     <table>
         <thead  th:if="${!lessons.empty}">
@@ -53,7 +58,7 @@
             </tr>
         </tbody>
     </table>
-
-    <a href="/addLesson">Добавить урок</a>
+<br><br>
+    <a href="/requestLesson">Подать заявку</a>
 </body>
 </html>
