@@ -1,88 +1,71 @@
 package io.kissmara.altair_schedule.model;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.temporal.TemporalAmount;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.time.LocalTime;
+import java.util.stream.Collectors;
 
 @Service
 public class LessonService {
+    @Autowired
+    private LessonRepository lessonRepository;
 
-    private final LessonRepository requestRepository;
-    private final LessonRepository scheduleRepository;
-
-    public LessonService(LessonRepository requestRepository, LessonRepository scheduleRepository) {
-        this.requestRepository = requestRepository;
-        this.scheduleRepository = scheduleRepository;
+    private static void accept(Lesson lesson) {
+        lesson.setIsAccepted(true);
     }
 
-    /*Integer getLastId(){
-        return (int) lessonRepository.count();
-    }*/
 
     public List<Lesson> getRequests(){
         List<Lesson> requests = new ArrayList<>();
-        requestRepository.findAll().forEach(requests::add);
-        return requests;
+        lessonRepository.findAll().forEach(requests::add);
+        return requests.parallelStream().filter(lesson -> !lesson.getIsAccepted()).collect(Collectors.toList());
     }
-
-    public Optional<Lesson> getLesson(Integer id){
-        return requestRepository.findById(id);
-    }
-
-    public boolean addLesson(Lesson lesson){
-        if(!isOverlapped(lesson)) {
-            requestRepository.save(lesson);
-            return true;
-        }   return false;
-    }
-
-    public void deleteLesson(Integer id){
-        requestRepository.deleteById(id);
-    }
-
-    public void updateLesson(Integer id, Lesson lesson){
-        requestRepository.save(lesson);
-    }
-
-
-    /*Integer getLastIdInSchedule(){
-        return (int) lessonRepository.count();
-    }*/
 
     public List<Lesson> getSchedule(){
         List<Lesson> lessons = new ArrayList<>();
-        scheduleRepository.findAll().forEach(lessons::add);
-        return lessons;
+        lessonRepository.findAll().forEach(lessons::add);
+        return lessons.parallelStream().filter(Lesson::getIsAccepted).collect(Collectors.toList());
     }
 
-    public Optional<Lesson> getLessonFromSchedule(Integer id){
-        return scheduleRepository.findById(id);
-    }
-
-    public boolean addLessonToSchedule(Lesson lesson){
+    public boolean addRequest(Lesson lesson){
         if(!isOverlapped(lesson)) {
-            scheduleRepository.save(lesson);
+            lessonRepository.save(lesson);
             return true;
         }   return false;
     }
 
-    public boolean deleteLessonFromSchedule(Integer id){
-        scheduleRepository.deleteById(id);
-        return true;
+    public Optional<Lesson> getLesson(Integer id){
+        return lessonRepository.findById(id);
     }
 
-    public boolean updateLessonInSchedule(Integer id, Lesson lesson){
-        scheduleRepository.save(lesson);
-        return true;
+    public List<Integer> lessonTransactionById(List<Integer> ids){
+        List<Integer> failed = new ArrayList<>();
+        for (int id : ids)
+            if (getLesson(id).isEmpty() || isOverlapped(getLesson(id).get())) failed.add(id);
+        if(failed.isEmpty())
+            lessonRepository.findAllById(ids).forEach(LessonService::accept);
+        return failed;
     }
+    public List<Integer> lessonTransactionByObject(List<Lesson> requests){
+        List<Integer> failed = new ArrayList<>();
+        for (Lesson request : requests)
+            if (isOverlapped(request)) failed.add(request.getId());
+        if(failed.isEmpty())
+            requests.forEach(LessonService::accept);
+        return failed;
+    }
+
+    public void addLesson(Integer id){
+        lessonRepository.findById(id).get().setIsAccepted(true);
+    }
+
 
     private boolean isOverlapped(Lesson lesson){
-        return getSchedule().stream()
+        return getSchedule().parallelStream()
                 .filter(lesson1 -> lesson1.getDate().equals(lesson.getDate()))
 
                 .filter(lesson1 -> (!(lesson1.getTime().isAfter(lesson.getTime()

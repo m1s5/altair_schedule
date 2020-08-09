@@ -46,15 +46,15 @@
                 <td colspan="2"> Нет записей </td>
             </tr>
             <tr th:each="lesson : ${lessons}">
-                <td><span th:text="${lesson.id}"> id </span></td>
-                <td><span th:text="${lesson.subject}"> subject </span></td>
-                <td><span th:text="${lesson.domain.name}"> domain </span></td>
-                <td><span th:text="${lesson.tutor}"> tutor </span></td>
-                <td><span th:text="${lesson.assistant}"> assistant </span></td>
-                <td><span th:text="${lesson.classroom}"> classroom </span></td>
-                <td><span th:text="${lesson.date}"> date </span></td>
-                <td><span th:text="${lesson.time}"> time </span></td>
-                <td><span th:text="${lesson.duration}"> duration </span></td>
+                <td><span th:text="*{id}"> id </span></td>
+                <td><span th:text="*{subject}"> subject </span></td>
+                <td><span th:text="*{name}"> domain </span></td>
+                <td><span th:text="*{tutor}"> tutor </span></td>
+                <td><span th:text="*{assistant}"> assistant </span></td>
+                <td><span th:text="*{classroom}"> classroom </span></td>
+                <td><span th:text="*{date}"> date </span></td>
+                <td><span th:text="*{time}"> time </span></td>
+                <td><span th:text="*{duration}"> duration </span></td>
             </tr>
         </tbody>
     </table>

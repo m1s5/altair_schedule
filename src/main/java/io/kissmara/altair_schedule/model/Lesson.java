@@ -1,6 +1,8 @@
 package io.kissmara.altair_schedule.model;
 
 
+import org.springframework.context.annotation.Bean;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,7 +14,7 @@ import java.time.LocalTime;
 @Entity
 public class Lesson {
 
-    @Id @GeneratedValue(strategy= GenerationType.AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.TABLE)
     private Integer id;
     private String subject;
     private Domain domain;
@@ -22,20 +24,19 @@ public class Lesson {
     private Date date;
     private LocalTime time;
     private Integer duration;
+    private boolean isAccepted = false;
 
-    public Lesson(){
-        id = 1;
-    }
+    public Lesson(){}
     public Lesson(Integer id, String subject, Domain domain,
            String tutor, String assistant, String classroom,
-           Date date, LocalTime time, Integer duration){
+           Date date, LocalTime time, Integer duration, boolean isAccepted){
         super();
         this.id = id; this.subject=subject;
         this.domain = domain; this.tutor = tutor;
         this.assistant = assistant; this.classroom = classroom;
         this.date = date; this.time = time;
         this.duration = duration;
-
+        this.isAccepted = isAccepted;
     }
 
     public String getSubject() {
@@ -108,5 +109,13 @@ public class Lesson {
 
     public Integer getId() {
         return id;
+    }
+
+    public boolean getIsAccepted() {
+        return isAccepted;
+    }
+
+    public void setIsAccepted(boolean accepted) {
+        isAccepted = accepted;
     }
 }

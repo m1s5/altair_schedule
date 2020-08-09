@@ -6,64 +6,77 @@
     <title>Altair Schedule</title>
 </head>
 
-
 <header>
     <a style="text-align: right" href="/login">Login</a><br>
     <a style="text-align: right" href="/logout">Logout</a>
 </header>
 <body>
+<form th:action="@{/confirmRequests}" method="post" th:object="${form}">
+    <table>
+        <thead  th:if="*{!requests.empty}">
+        <th>id</th><th>subject</th><th>domain</th><th>tutor</th><th>assistant</th>
+        <th>classroom</th><th>date</th><th>time</th><th>duration</th><th>accept</th>
+        </thead>
+        <tbody>
+        <tr th:if="*{requests.empty}">
+            <td colspan="2"> Нет заявок</td>
+        </tr>
+
+        <tr th:each="request, itemStat: *{requests}">
+            <td><span th:text="*{requests[__${itemStat.index}__].id}"> id </span></td>
+            <td><span th:text="*{requests[__${itemStat.index}__].subject}"> subject </span></td>
+            <td><span th:text="*{requests[__${itemStat.index}__].domain.name}"> domain </span></td>
+            <td><span th:text="*{requests[__${itemStat.index}__].tutor}"> tutor </span></td>
+            <td><span th:text="*{requests[__${itemStat.index}__].assistant}"> assistant </span></td>
+            <td><span th:text="*{requests[__${itemStat.index}__].classroom}"> classroom </span></td>
+            <td><span th:text="*{requests[__${itemStat.index}__].date}"> date </span></td>
+            <td><span th:text="*{requests[__${itemStat.index}__].time}"> time </span></td>
+            <td><span th:text="*{requests[__${itemStat.index}__].duration}"> duration </span></td>
+            <td><span>
+                <input type="hidden" name="id"          th:value="*{requests[__${itemStat.index}__].id}">
+                <input type="hidden" name="subject"     th:value="*{requests[__${itemStat.index}__].subject}">
+                <input type="hidden" name="domain.name" th:value="*{requests[__${itemStat.index}__].domain.name}">
+                <input type="hidden" name="tutor"       th:value="*{requests[__${itemStat.index}__].tutor}">
+                <input type="hidden" name="assistant"   th:value="*{requests[__${itemStat.index}__].assistant}">
+                <input type="hidden" name="classroom"   th:value="*{requests[__${itemStat.index}__].classroom}">
+                <input type="hidden" name="date"        th:value="*{requests[__${itemStat.index}__].date}">
+                <input type="hidden" name="time"        th:value="*{requests[__${itemStat.index}__].time}">
+                <input type="hidden" name="duration"    th:value="*{requests[__${itemStat.index}__].duration}">
+                <input type="checkbox" name="form"      th:value="*{requests[__${itemStat.index}__].id}"
+
+                             th:field="*{requests[__${itemStat.index}__].isAccepted}" /></span></td>
+        </tr>
+        <br/><br/>
+        <input type="submit"/>
+        </tbody>
+    </table>
+</form>
+<table>
+<br/><br/>
 <table>
     <thead  th:if="${!lessons.empty}">
-    <th>
-        id
-    </th>
-    <th>
-        subject
-    </th>
-    <th>
-        domain
-    </th>
-    <th>
-        tutor
-    </th>
-    <th>
-        assistant
-    </th>
-    <th>
-        classroom
-    </th>
-    <th>
-        date
-    </th>
-    <th>
-        time
-    </th>
-    <th>
-        duration
-    </th>
+        <th>id</th><th>subject</th><th>domain</th><th>tutor</th><th>assistant</th>
+        <th>classroom</th><th>date</th><th>time</th><th>duration</th>
     </thead>
-    <form class="grid" action="#" th:action="@{/confirmRequests}" method="post" th:object="${request}">
     <tbody>
     <tr th:if="${lessons.empty}">
         <td colspan="2"> Нет записей </td>
     </tr>
-    <tr th:each="request : ${requests}">
-        <td><span th:text="${request.id}"> id </span></td>
-        <td><span th:text="${request.subject}"> subject </span></td>
-        <td><span th:text="${request.domain.name}"> domain </span></td>
-        <td><span th:text="${request.tutor}"> tutor </span></td>
-        <td><span th:text="${request.assistant}"> assistant </span></td>
-        <td><span th:text="${request.classroom}"> classroom </span></td>
-        <td><span th:text="${request.date}"> date </span></td>
-        <td><span th:text="${request.time}"> time </span></td>
-        <td><span th:text="${request.duration}"> duration </span></td>
-        <input type="checkbox" name="checked" value="${request.id}">
+    <tr th:each="lesson : ${lessons}" th:object="${lesson}">
+        <td><span th:text="*{id}"> id </span></td>
+        <td><span th:text="*{subject}"> subject </span></td>
+        <td><span th:text="*{domain.name}"> domain </span></td>
+        <td><span th:text="*{tutor}"> tutor </span></td>
+        <td><span th:text="*{assistant}"> assistant </span></td>
+        <td><span th:text="*{classroom}"> classroom </span></td>
+        <td><span th:text="*{date}"> date </span></td>
+        <td><span th:text="*{time}"> time </span></td>
+        <td><span th:text="*{duration}"> duration </span></td>
     </tr>
     </tbody>
-        <br>
-        <input type="submit"/>
-    </form>
 </table>
+
+<br><br>
 
 <a href="/">Расписание</a>
 </body>

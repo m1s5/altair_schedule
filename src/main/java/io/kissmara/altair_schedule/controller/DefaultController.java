@@ -3,6 +3,7 @@ package io.kissmara.altair_schedule.controller;
 import io.kissmara.altair_schedule.model.Domain;
 import io.kissmara.altair_schedule.model.Lesson;
 import io.kissmara.altair_schedule.model.LessonService;
+import io.kissmara.altair_schedule.model.RequestConfirmDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +18,8 @@ import java.util.List;
 
 @Controller
 public class DefaultController {
-
-    public final LessonService lessonService;
-    public DefaultController(LessonService lessonService) {
-        this.lessonService = lessonService;
-    }
+    @Autowired
+    public LessonService lessonService;
 
 
     @GetMapping("/")
@@ -44,21 +42,38 @@ public class DefaultController {
     }
     @PostMapping("/requestLesson")
     public String requestLesson(@ModelAttribute("request") Lesson request) {
-        if(lessonService.addLesson(request))
-        return "okRequest";
+        if(lessonService.addRequest(request))
+            return "okRequest";
         return "failedRequest";
     }
 
 
     @GetMapping("confirmRequests")
     public String confirmLessons(Model model){
-        model.addAttribute("requests", lessonService.getRequests());
-        model.addAttribute("checked", new ArrayList<Integer>());
+        RequestConfirmDto form = new RequestConfirmDto(lessonService.getRequests());
+        model.addAttribute("requests", form);
+        model.addAttribute("lessons", lessonService.getSchedule());
+        model.addAttribute("form", form);
         return "confirmRequests";
     }
     @PostMapping("confirmRequests")
-    public String confirmLessons(@ModelAttribute("checked") ArrayList<Integer> ids){
-        return "okConfirm";
+    public String confirmLessons(Model model, @ModelAttribute("form") RequestConfirmDto form){
+        /*if(form.getRequests().stream().noneMatch(Lesson::getIsAccepted)) return "nothingToConfirm";
+        for(int i = 0; i < lessonService.getRequests().size(); i++){
+            lessonService.getRequests().get(i).setIsAccepted(form.getRequests().get(i).getIsAccepted());
+        }
+
+        List<Integer> failedList = lessonService.lessonTransactionByObject(form.getRequests());
+        if(failedList.isEmpty())
+            return "okConfirm";
+        else model.addAttribute("failedList", failedList);
+        return "failedConfirm";*/
+
+        if(form.getRequests().stream().noneMatch(Lesson::getIsAccepted)) return "nothingToConfirm";
+        List<Integer> failedList = lessonService.lessonTransactionByObject(form.getRequests());
+        if(failedList.isEmpty())
+            return "okConfirm";
+        return "failedConfirm";
     }
 
 
