@@ -22,13 +22,13 @@ public class LessonService {
     public List<Lesson> getRequests(){
         List<Lesson> requests = new ArrayList<>();
         lessonRepository.findAll().forEach(requests::add);
-        return requests.parallelStream().filter(lesson -> !lesson.getIsAccepted()).collect(Collectors.toList());
+        return requests.stream().filter(lesson -> !lesson.getIsAccepted()).collect(Collectors.toList());
     }
 
     public List<Lesson> getSchedule(){
         List<Lesson> lessons = new ArrayList<>();
         lessonRepository.findAll().forEach(lessons::add);
-        return lessons.parallelStream().filter(Lesson::getIsAccepted).collect(Collectors.toList());
+        return lessons.stream().filter(Lesson::getIsAccepted).collect(Collectors.toList());
     }
 
     public boolean addRequest(Lesson lesson){
@@ -55,7 +55,7 @@ public class LessonService {
         for (Lesson request : requests)
             if (isOverlapped(request)) failed.add(request.getId());
         if(failed.isEmpty())
-            requests.forEach(LessonService::accept);
+            lessonRepository.saveAll(requests);
         return failed;
     }
 
@@ -65,7 +65,9 @@ public class LessonService {
 
 
     private boolean isOverlapped(Lesson lesson){
-        return getSchedule().parallelStream()
+
+
+        return getSchedule().stream()
                 .filter(lesson1 -> lesson1.getDate().equals(lesson.getDate()))
 
                 .filter(lesson1 -> (!(lesson1.getTime().isAfter(lesson.getTime()
@@ -73,11 +75,10 @@ public class LessonService {
                                       lesson1.getTime().plusMinutes(45*lesson1.getDuration())
                                              .isBefore(lesson.getTime()))))
 
-                .filter(lesson1 ->  lesson1.getClassroom().equals(lesson.getClassroom()) ||
+                .anyMatch(lesson1 ->  lesson1.getClassroom().equals(lesson.getClassroom()) ||
                                     lesson1.getTutor().equals(lesson.getTutor())         ||
                                    (lesson1.getAssistant().equals(lesson.getAssistant()) &&
-                                   !lesson1.getAssistant().equals("-")))
-                .count() >= 1;
+                                   !lesson1.getAssistant().isEmpty()));
     }
 
 }

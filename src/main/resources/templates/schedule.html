@@ -11,53 +11,29 @@
     <a style="text-align: right" href="/logout">Logout</a>
 </header>
 <body>
-    <table>
-        <thead  th:if="${!lessons.empty}">
-            <th>
-                id
-            </th>
-            <th>
-                subject
-            </th>
-            <th>
-                domain
-            </th>
-            <th>
-                tutor
-            </th>
-            <th>
-                assistant
-            </th>
-            <th>
-                classroom
-            </th>
-            <th>
-                date
-            </th>
-            <th>
-                time
-            </th>
-            <th>
-                duration
-            </th>
-        </thead>
-        <tbody>
-            <tr th:if="${lessons.empty}">
-                <td colspan="2"> Нет записей </td>
-            </tr>
-            <tr th:each="lesson : ${lessons}">
-                <td><span th:text="*{id}"> id </span></td>
-                <td><span th:text="*{subject}"> subject </span></td>
-                <td><span th:text="*{name}"> domain </span></td>
-                <td><span th:text="*{tutor}"> tutor </span></td>
-                <td><span th:text="*{assistant}"> assistant </span></td>
-                <td><span th:text="*{classroom}"> classroom </span></td>
-                <td><span th:text="*{date}"> date </span></td>
-                <td><span th:text="*{time}"> time </span></td>
-                <td><span th:text="*{duration}"> duration </span></td>
-            </tr>
-        </tbody>
-    </table>
+<table>
+    <thead  th:if="${!lessons.empty}">
+    <th>id</th><th>subject</th><th>domain</th><th>tutor</th><th>assistant</th>
+    <th>classroom</th><th>date</th><th>time</th><th>duration</th>
+    </thead>
+    <tbody>
+    <tr th:if="${lessons.empty}">
+        <td colspan="2"> Нет записей </td>
+    </tr>
+    <tr th:each="lesson : ${lessons}" th:object="${lesson}">
+        <td><span th:text="*{id}"> id </span></td>
+        <td><span th:text="*{subject}"> subject </span></td>
+        <td><span th:text="*{domain.name}"> domain </span></td>
+        <td><span th:text="*{tutor}"> tutor </span></td>
+        <td><span th:text="*{assistant}"> assistant </span></td>
+        <td><span th:text="*{classroom}"> classroom </span></td>
+        <td><span th:text="*{date}"> date </span></td>
+        <td><span th:text="*{time}"> time </span></td>
+        <td><span th:text="*{duration}"> duration </span></td>
+    </tr>
+    </tbody>
+</table>
+
 <br><br>
     <a href="/requestLesson">Подать заявку</a>
 </body>
