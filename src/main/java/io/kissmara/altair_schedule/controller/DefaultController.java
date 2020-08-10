@@ -5,6 +5,7 @@ import io.kissmara.altair_schedule.model.Lesson;
 import io.kissmara.altair_schedule.model.LessonService;
 import io.kissmara.altair_schedule.model.RequestConfirmDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -20,13 +24,14 @@ import java.util.List;
 public class DefaultController {
     @Autowired
     public LessonService lessonService;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    LocalDateTime time;
 
 
     @GetMapping("/")
     public String getSchedule(Model model){
         List<Lesson> schedule = lessonService.getSchedule();
-        schedule.sort(Comparator.comparing(Lesson::getDate)
-                .thenComparing(Lesson::getTime));
+        schedule.sort(Comparator.comparing(Lesson::getDateTime));
         model.addAttribute("lessons", schedule);
         return "schedule";
     }
@@ -37,7 +42,10 @@ public class DefaultController {
         Lesson request = new Lesson();
         model.addAttribute("request", request);
         model.addAttribute("domains", Domain.values());
-        model.addAttribute("now", LocalDate.now());
+        time = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+        model.addAttribute("minTime", time);
+        time = LocalDateTime.now().plusMonths(6).truncatedTo(ChronoUnit.MINUTES);
+        model.addAttribute("maxTime", time);
         return "requestLesson";
     }
     @PostMapping("/requestLesson")
@@ -58,21 +66,12 @@ public class DefaultController {
     }
     @PostMapping("confirmRequests")
     public String confirmLessons(Model model, @ModelAttribute("form") RequestConfirmDto form){
-        /*if(form.getRequests().stream().noneMatch(Lesson::getIsAccepted)) return "nothingToConfirm";
-        for(int i = 0; i < lessonService.getRequests().size(); i++){
-            lessonService.getRequests().get(i).setIsAccepted(form.getRequests().get(i).getIsAccepted());
-        }
-
-        List<Integer> failedList = lessonService.lessonTransactionByObject(form.getRequests());
-        if(failedList.isEmpty())
-            return "okConfirm";
-        else model.addAttribute("failedList", failedList);
-        return "failedConfirm";*/
 
         if(form.getRequests().stream().noneMatch(Lesson::getIsAccepted)) return "nothingToConfirm";
         List<Integer> failedList = lessonService.lessonTransactionByObject(form.getRequests());
         if(failedList.isEmpty())
             return "okConfirm";
+        model.addAttribute("failedList", failedList);
         return "failedConfirm";
     }
 

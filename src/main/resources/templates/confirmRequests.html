@@ -14,8 +14,8 @@
 <form th:action="@{/confirmRequests}" method="post" th:object="${form}">
     <table>
         <thead  th:if="*{!requests.empty}">
-        <th>id</th><th>subject</th><th>domain</th><th>tutor</th><th>assistant</th>
-        <th>classroom</th><th>date</th><th>time</th><th>duration</th><th>accept</th>
+        <tr><th>id</th><th>subject</th><th>domain</th><th>tutor</th><th>assistant</th>
+            <th>classroom</th><th>date</th><th>time</th><th>duration</th><th>accept</th></tr>
         </thead>
         <tbody>
         <tr th:if="*{requests.empty}">
@@ -23,15 +23,14 @@
         </tr>
 
         <tr th:each="request, itemStat: *{requests}">
-            <td><span th:text="*{requests[__${itemStat.index}__].id}"> id </span></td>
-            <td><span th:text="*{requests[__${itemStat.index}__].subject}"> subject </span></td>
+            <td><span th:text="*{requests[__${itemStat.index}__].id}">          id </span></td>
+            <td><span th:text="*{requests[__${itemStat.index}__].subject}">     subject </span></td>
             <td><span th:text="*{requests[__${itemStat.index}__].domain.name}"> domain </span></td>
-            <td><span th:text="*{requests[__${itemStat.index}__].tutor}"> tutor </span></td>
-            <td><span th:text="*{requests[__${itemStat.index}__].assistant}"> assistant </span></td>
-            <td><span th:text="*{requests[__${itemStat.index}__].classroom}"> classroom </span></td>
-            <td><span th:text="*{requests[__${itemStat.index}__].date}"> date </span></td>
-            <td><span th:text="*{requests[__${itemStat.index}__].time}"> time </span></td>
-            <td><span th:text="*{requests[__${itemStat.index}__].duration}"> duration </span></td>
+            <td><span th:text="*{requests[__${itemStat.index}__].tutor}">       tutor </span></td>
+            <td><span th:text="*{requests[__${itemStat.index}__].assistant}">   assistant </span></td>
+            <td><span th:text="*{requests[__${itemStat.index}__].classroom}">   classroom </span></td>
+            <td><span th:text="*{requests[__${itemStat.index}__].dateTime}">        date/time </span></td>
+            <td><span th:text="*{requests[__${itemStat.index}__].duration}">    duration </span></td>
             <td><span>
                 <input type="hidden" name="id"          th:field="*{requests[__${itemStat.index}__].id}">
                 <input type="hidden" name="subject"     th:field="*{requests[__${itemStat.index}__].subject}">
@@ -39,24 +38,22 @@
                 <input type="hidden" name="tutor"       th:field="*{requests[__${itemStat.index}__].tutor}">
                 <input type="hidden" name="assistant"   th:field="*{requests[__${itemStat.index}__].assistant}">
                 <input type="hidden" name="classroom"   th:field="*{requests[__${itemStat.index}__].classroom}">
-                <input type="hidden" name="date"        th:field="*{requests[__${itemStat.index}__].date}">
-                <input type="hidden" name="time"        th:field="*{requests[__${itemStat.index}__].time}">
+                <input type="hidden" name="dateTime"    th:field="*{requests[__${itemStat.index}__].dateTime}">
                 <input type="hidden" name="duration"    th:field="*{requests[__${itemStat.index}__].duration}">
                 <input type="checkbox" name="form"      th:value="*{requests[__${itemStat.index}__].id}"
 
-                             th:field="*{requests[__${itemStat.index}__].isAccepted}" /></span></td>
+                                                        th:field="*{requests[__${itemStat.index}__].isAccepted}" />
+            </span></td>
         </tr>
-        <br/><br/>
-        <input type="submit"/>
         </tbody>
+        <input type="submit"/>
     </table>
 </form>
-<table>
 <br/><br/>
 <table>
     <thead  th:if="${!lessons.empty}">
-        <th>id</th><th>subject</th><th>domain</th><th>tutor</th><th>assistant</th>
-        <th>classroom</th><th>date</th><th>time</th><th>duration</th>
+        <tr><th>id</th><th>subject</th><th>domain</th><th>tutor</th><th>assistant</th>
+            <th>classroom</th><th>date</th><th>time</th><th>duration</th></tr>
     </thead>
     <tbody>
     <tr th:if="${lessons.empty}">
@@ -69,8 +66,7 @@
         <td><span th:text="*{tutor}"> tutor </span></td>
         <td><span th:text="*{assistant}"> assistant </span></td>
         <td><span th:text="*{classroom}"> classroom </span></td>
-        <td><span th:text="*{date}"> date </span></td>
-        <td><span th:text="*{time}"> time </span></td>
+        <td><span th:text="*{dateTime}"> date/time </span></td>
         <td><span th:text="*{duration}"> duration </span></td>
     </tr>
     </tbody>

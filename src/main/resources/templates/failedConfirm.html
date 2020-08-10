@@ -17,6 +17,10 @@
 <h1>
     Failed Confirm
 </h1>
+<br><br><br>
+<div th:each="failed, itemStat: ${failedList}">
+    <div th:text="${failed}"></div>
+</div>
 
 </body>
 </html>

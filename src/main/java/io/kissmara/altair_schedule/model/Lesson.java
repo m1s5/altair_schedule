@@ -2,12 +2,14 @@ package io.kissmara.altair_schedule.model;
 
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 
@@ -21,20 +23,20 @@ public class Lesson {
     private String tutor;
     private String assistant;
     private String classroom;
-    private Date date;
-    private LocalTime time;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private LocalDateTime dateTime;
     private Integer duration;
     private boolean isAccepted = false;
 
     public Lesson(){}
     public Lesson(Integer id, String subject, Domain domain,
            String tutor, String assistant, String classroom,
-           Date date, LocalTime time, Integer duration, boolean isAccepted){
+           Date date, LocalDateTime dateTime, Integer duration, boolean isAccepted){
         super();
         this.id = id; this.subject=subject;
         this.domain = domain; this.tutor = tutor;
         this.assistant = assistant; this.classroom = classroom;
-        this.date = date; this.time = time;
+        this.dateTime = dateTime;
         this.duration = duration;
         this.isAccepted = isAccepted;
     }
@@ -63,20 +65,12 @@ public class Lesson {
         this.classroom = classroom;
     }
 
-    public Date getDate() {
-        return date;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public LocalTime getTime() {
-        return time;
-    }
-
-    public void setTime(LocalTime time) {
-        this.time = time;
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     public Integer getDuration() {

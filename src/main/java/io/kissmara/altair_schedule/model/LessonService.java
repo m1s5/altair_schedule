@@ -32,7 +32,7 @@ public class LessonService {
     }
 
     public boolean addRequest(Lesson lesson){
-        if(!isOverlapped(lesson)) {
+        if(!isOverlapped(lesson, getSchedule())) {
             lessonRepository.save(lesson);
             return true;
         }   return false;
@@ -45,35 +45,36 @@ public class LessonService {
     public List<Integer> lessonTransactionById(List<Integer> ids){
         List<Integer> failed = new ArrayList<>();
         for (int id : ids)
-            if (getLesson(id).isEmpty() || isOverlapped(getLesson(id).get())) failed.add(id);
+            if (getLesson(id).isEmpty() || isOverlapped(getLesson(id).get(), getSchedule())) failed.add(id);
         if(failed.isEmpty())
             lessonRepository.findAllById(ids).forEach(LessonService::accept);
         return failed;
     }
     public List<Integer> lessonTransactionByObject(List<Lesson> requests){
         List<Integer> failed = new ArrayList<>();
+        requests = requests.stream().filter(Lesson::getIsAccepted).collect(Collectors.toList());
         for (Lesson request : requests)
-            if (isOverlapped(request)) failed.add(request.getId());
+            if (isOverlapped(request, getSchedule()) || isOverlapped(request, requests)) failed.add(request.getId());
         if(failed.isEmpty())
             lessonRepository.saveAll(requests);
         return failed;
     }
 
     public void addLesson(Integer id){
-        lessonRepository.findById(id).get().setIsAccepted(true);
+        lessonRepository.findById(id).ifPresent(LessonService::accept);
     }
 
 
-    private boolean isOverlapped(Lesson lesson){
+    private boolean isOverlapped(Lesson lesson, List<Lesson> lessonsList){
 
 
-        return getSchedule().stream()
-                .filter(lesson1 -> lesson1.getDate().equals(lesson.getDate()))
+        return lessonsList.stream()
+                .filter(lesson1 -> !lesson1.getId().equals(lesson.getId()))
 
-                .filter(lesson1 -> (!(lesson1.getTime().isAfter(lesson.getTime()
-                                             .plusMinutes(45*lesson.getDuration())) ||
-                                      lesson1.getTime().plusMinutes(45*lesson1.getDuration())
-                                             .isBefore(lesson.getTime()))))
+                .filter(lesson1 -> !(lesson1.getDateTime().isAfter(lesson.getDateTime()
+                                            .plusMinutes(45*lesson.getDuration())) ||
+                                     lesson1.getDateTime().plusMinutes(45*lesson1.getDuration())
+                                            .isBefore(lesson.getDateTime())))
 
                 .anyMatch(lesson1 ->  lesson1.getClassroom().equals(lesson.getClassroom()) ||
                                     lesson1.getTutor().equals(lesson.getTutor())         ||

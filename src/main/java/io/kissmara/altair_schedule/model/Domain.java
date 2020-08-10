@@ -5,7 +5,9 @@ public enum Domain {
     MATH("Математика"),
     PHYSICS("Физика"),
     CODE("Программирование"),
-    RADIO("Радиоэлектроника");
+    RADIO("Радиоэлектроника"),
+    SCHEDULED("");
+
     private final String name;
     Domain(String name){
         this.name = name;

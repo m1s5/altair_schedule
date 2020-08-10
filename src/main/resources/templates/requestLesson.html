@@ -38,13 +38,14 @@
         Аудитория
     </label> <input type="text" required th:field="*{classroom}"/>
     <label>
-        Дата
-    </label> <input type="date" th:min="${now}"  max="9999-01-01" th:value="${now}" required th:field="*{date}"/>
+        Время/Дата
+    </label>
+    <input type="datetime-local" required th:field="*{dateTime}"
+           th:value="${minTime}"
+           th:min="${minTime}" th:max="${maxTime}">
+
     <label>
-        Время
-    </label> <input type="time" required th:field="*{time}"/>
-    <label>
-        Длительность
+        Длительность(45 мин.)
     </label> <input type="number" min="1" value="1" th:field="*{duration}"/>
 
     <input type="submit"/>
