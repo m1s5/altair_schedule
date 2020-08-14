@@ -65,7 +65,7 @@ public class LessonService {
     }
 
 
-    private boolean isOverlapped(Lesson lesson, List<Lesson> lessonsList){
+    public boolean isOverlapped(Lesson lesson, List<Lesson> lessonsList){
 
 
         return lessonsList.stream()

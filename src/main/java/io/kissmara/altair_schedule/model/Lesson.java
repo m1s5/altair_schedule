@@ -31,7 +31,7 @@ public class Lesson {
     public Lesson(){}
     public Lesson(Integer id, String subject, Domain domain,
            String tutor, String assistant, String classroom,
-           Date date, LocalDateTime dateTime, Integer duration, boolean isAccepted){
+           LocalDateTime dateTime, Integer duration, boolean isAccepted){
         super();
         this.id = id; this.subject=subject;
         this.domain = domain; this.tutor = tutor;
