@@ -1,9 +1,6 @@
 package io.kissmara.altair_schedule.controller;
 
-import io.kissmara.altair_schedule.model.Domain;
-import io.kissmara.altair_schedule.model.Lesson;
-import io.kissmara.altair_schedule.model.LessonService;
-import io.kissmara.altair_schedule.model.RequestConfirmDto;
+import io.kissmara.altair_schedule.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -12,10 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -56,23 +51,47 @@ public class DefaultController {
     }
 
 
-    @GetMapping("confirmRequests")
-    public String confirmLessons(Model model){
-        RequestConfirmDto form = new RequestConfirmDto(lessonService.getRequests());
-        model.addAttribute("requests", form);
-        model.addAttribute("lessons", lessonService.getSchedule());
-        model.addAttribute("form", form);
-        return "confirmRequests";
-    }
-    @PostMapping("confirmRequests")
-    public String confirmLessons(Model model, @ModelAttribute("form") RequestConfirmDto form){
+    @GetMapping("/manageLessons")
+    public String manageLessons(Model model){
+        LessonDto requests = new LessonDto(lessonService.getRequests());
+        LessonDto schedule = new LessonDto(lessonService.getSchedule());
 
-        if(form.getRequests().stream().noneMatch(Lesson::getIsAccepted)) return "nothingToConfirm";
-        List<Integer> failedList = lessonService.lessonTransactionByObject(form.getRequests());
+        model.addAttribute("requests", requests);
+        model.addAttribute("schedule", schedule);
+        return "manageLessons";
+    }
+
+    @PostMapping("/confirmRequests")
+    public String confirmRequests(Model model, @ModelAttribute("form") LessonDto form){
+        int size = form.getLessons().size();
+        System.out.println(size);
+        if(form.getLessons().stream().noneMatch(Lesson::getIsAccepted)) return "nothingToConfirm";
+        List<Integer> failedList = lessonService.lessonTransactionByObject(form.getLessons());
         if(failedList.isEmpty())
             return "okConfirm";
         model.addAttribute("failedList", failedList);
         return "failedConfirm";
+    }
+
+    @PostMapping("/discardRequests")
+    public String discardRequest(Model model, @ModelAttribute("form") LessonDto form){
+
+        if(form.getLessons().stream().allMatch(Lesson::getIsActive)) return "nothingToDiscard";
+
+        for(Lesson lesson: form.getLessons()){
+            if(!lesson.getIsActive()) lessonService.removeLesson(lesson);
+        }
+            return "okDiscard";
+    }
+
+    @PostMapping("/discardLessons")
+    public String discardLessons(Model model, @ModelAttribute("form") LessonDto form){
+
+        if(form.getLessons().stream().allMatch(Lesson::getIsAccepted)) return "nothingToDiscard";
+        for(Lesson lesson: form.getLessons()){
+            if(!lesson.getIsAccepted()) lessonService.addRequest(lesson);
+        }
+            return "okDiscard";
     }
 
 

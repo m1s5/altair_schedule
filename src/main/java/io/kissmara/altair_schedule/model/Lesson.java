@@ -16,7 +16,7 @@ import java.time.LocalTime;
 @Entity
 public class Lesson {
 
-    @Id @GeneratedValue(strategy = GenerationType.TABLE)
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String subject;
     private Domain domain;
@@ -27,6 +27,7 @@ public class Lesson {
     private LocalDateTime dateTime;
     private Integer duration;
     private boolean isAccepted = false;
+    private boolean isActive = true;
 
     public Lesson(){}
     public Lesson(Integer id, String subject, Domain domain,
@@ -111,5 +112,13 @@ public class Lesson {
 
     public void setIsAccepted(boolean accepted) {
         isAccepted = accepted;
+    }
+
+    public boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean active) {
+        isActive = active;
     }
 }

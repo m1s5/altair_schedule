@@ -64,6 +64,10 @@ public class LessonService {
         lessonRepository.findById(id).ifPresent(LessonService::accept);
     }
 
+    public void removeLesson(Lesson lesson){
+        lessonRepository.delete(lesson);
+    }
+
 
     public boolean isOverlapped(Lesson lesson, List<Lesson> lessonsList){
 
@@ -72,8 +76,8 @@ public class LessonService {
                 .filter(lesson1 -> !lesson1.getId().equals(lesson.getId()))
 
                 .filter(lesson1 -> !(lesson1.getDateTime().isAfter(lesson.getDateTime()
-                                            .plusMinutes(45*lesson.getDuration())) ||
-                                     lesson1.getDateTime().plusMinutes(45*lesson1.getDuration())
+                                            .plusMinutes(45*lesson.getDuration() - 1)) ||
+                                     lesson1.getDateTime().plusMinutes(45*lesson1.getDuration() - 1)
                                             .isBefore(lesson.getDateTime())))
 
                 .anyMatch(lesson1 ->  lesson1.getClassroom().equals(lesson.getClassroom()) ||
