@@ -55,7 +55,7 @@
                 <input type="hidden" name="classroom"   th:field="*{lessons[__${itemStat.index}__].classroom}">
                 <input type="hidden" name="dateTime"    th:field="*{lessons[__${itemStat.index}__].dateTime}">
                 <input type="hidden" name="duration"    th:field="*{lessons[__${itemStat.index}__].duration}">
-                <input type="hidden" name="duration"    th:field="*{lessons[__${itemStat.index}__].isActive}">
+                <input type="hidden" name="duration"    th:field="*{lessons[__${itemStat.index}__].isNotActive}">
                 <input type="checkbox" name="form"      th:value="*{lessons[__${itemStat.index}__].id}"
 
                        th:field="*{lessons[__${itemStat.index}__].isAccepted}" />
@@ -87,7 +87,7 @@
                 <input type="hidden" name="duration"    th:field="*{lessons[__${itemStat.index}__].duration}">
                 <input type="checkbox" name="form"      th:value="*{lessons[__${itemStat.index}__].id}"
 
-                       th:field="*{!lessons[__${itemStat.index}__].isActive}" />
+                       th:field="*{lessons[__${itemStat.index}__].isNotActive}" />
             </span></td>
             </tr>
             </tbody>
@@ -121,7 +121,7 @@
 
     <!-- Отмена занятия -->
     <form style="display: inline;" th:if="${!schedule.lessons.empty}"
-          th:action="@{/discardLesson}" method="post" th:object="${schedule}">
+          th:action="@{/discardLessons}" method="post" th:object="${schedule}">
         <table style="display: inline;">
             <thead>
             <tr><th>discard</th></tr>
@@ -139,7 +139,7 @@
                     <input type="hidden" name="duration"    th:field="*{lessons[__${itemStat.index}__].duration}">
                     <input type="checkbox" name="form"      th:value="*{lessons[__${itemStat.index}__].id}"
 
-                           th:field="*{!lessons[__${itemStat.index}__].isAccepted}" />
+                           th:field="*{lessons[__${itemStat.index}__].isNotAccepted}" />
                 </span></td>
             </tr>
             </tbody>

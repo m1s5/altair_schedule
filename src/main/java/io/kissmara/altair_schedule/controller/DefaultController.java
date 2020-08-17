@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -76,10 +75,10 @@ public class DefaultController {
     @PostMapping("/discardRequests")
     public String discardRequest(Model model, @ModelAttribute("form") LessonDto form){
 
-        if(form.getLessons().stream().allMatch(Lesson::getIsActive)) return "nothingToDiscard";
+        if(form.getLessons().stream().noneMatch(Lesson::getIsNotActive)) return "nothingToDiscard";
 
         for(Lesson lesson: form.getLessons()){
-            if(!lesson.getIsActive()) lessonService.removeLesson(lesson);
+            if(lesson.getIsNotActive()) lessonService.removeLesson(lesson);
         }
             return "okDiscard";
     }

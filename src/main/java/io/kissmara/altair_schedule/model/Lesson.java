@@ -1,16 +1,13 @@
 package io.kissmara.altair_schedule.model;
 
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.sql.Date;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 
 @Entity
@@ -27,7 +24,7 @@ public class Lesson {
     private LocalDateTime dateTime;
     private Integer duration;
     private boolean isAccepted = false;
-    private boolean isActive = true;
+    private boolean isNotActive = false;
 
     public Lesson(){}
     public Lesson(Integer id, String subject, Domain domain,
@@ -114,11 +111,19 @@ public class Lesson {
         isAccepted = accepted;
     }
 
-    public boolean getIsActive() {
-        return isActive;
+    public boolean getIsNotAccepted() {
+        return !isAccepted;
     }
 
-    public void setIsActive(boolean active) {
-        isActive = active;
+    public void setIsNotAccepted(boolean accepted) {
+        isAccepted = !accepted;
+    }
+
+    public boolean getIsNotActive() {
+        return isNotActive;
+    }
+
+    public void setIsNotActive(boolean active) {
+        isNotActive = active;
     }
 }
