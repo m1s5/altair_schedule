@@ -55,17 +55,15 @@ public class DefaultController {
         LessonDto requests = new LessonDto(lessonService.getRequests());
         LessonDto schedule = new LessonDto(lessonService.getSchedule());
 
-        model.addAttribute("requests", requests);
-        model.addAttribute("schedule", schedule);
+        model.addAttribute("lessonService", lessonService);
         return "manageLessons";
     }
 
     @PostMapping("/confirmRequests")
-    public String confirmRequests(Model model, @ModelAttribute("form") LessonDto form){
-        int size = form.getLessons().size();
-        System.out.println(size);
-        if(form.getLessons().stream().noneMatch(Lesson::getIsAccepted)) return "nothingToConfirm";
-        List<Integer> failedList = lessonService.lessonTransactionByObject(form.getLessons());
+    public String confirmRequests(Model model, @ModelAttribute("lessonService") LessonService lessonService){
+
+        if(lessonService.getRequests().stream().noneMatch(Lesson::getIsAccepted)) return "nothingToConfirm";
+        List<Integer> failedList = lessonService.lessonTransactionByObject(lessonService.getRequests());
         if(failedList.isEmpty())
             return "okConfirm";
         model.addAttribute("failedList", failedList);
@@ -73,21 +71,21 @@ public class DefaultController {
     }
 
     @PostMapping("/discardRequests")
-    public String discardRequest(Model model, @ModelAttribute("form") LessonDto form){
+    public String discardRequest(Model model, @ModelAttribute("lessonService") LessonService lessonService){
 
-        if(form.getLessons().stream().noneMatch(Lesson::getIsNotActive)) return "nothingToDiscard";
+        if(lessonService.getRequests().stream().noneMatch(Lesson::getIsNotActive)) return "nothingToDiscard";
 
-        for(Lesson lesson: form.getLessons()){
+        for(Lesson lesson: lessonService.getRequests()){
             if(lesson.getIsNotActive()) lessonService.removeLesson(lesson);
         }
             return "okDiscard";
     }
 
     @PostMapping("/discardLessons")
-    public String discardLessons(Model model, @ModelAttribute("form") LessonDto form){
+    public String discardLessons(Model model, @ModelAttribute("lessonService") LessonService lessonService){
 
-        if(form.getLessons().stream().allMatch(Lesson::getIsAccepted)) return "nothingToDiscard";
-        for(Lesson lesson: form.getLessons()){
+        if(lessonService.getSchedule().stream().allMatch(Lesson::getIsAccepted)) return "nothingToDiscard";
+        for(Lesson lesson: lessonService.getSchedule()){
             if(!lesson.getIsAccepted()) lessonService.addRequest(lesson);
         }
             return "okDiscard";
