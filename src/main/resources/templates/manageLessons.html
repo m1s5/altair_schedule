@@ -13,17 +13,17 @@
 <body>
 
     <!-- Вывод заявок -->
-    <table style="display: inline;" th:object="${lessonService}">
-        <thead  th:if="*{!requests.empty}">
+    <table style="display: inline;" th:object="${requests}">
+        <thead  th:if="*{!lessons.empty}">
         <tr><th>id</th><th>subject</th><th>domain</th><th>tutor</th><th>assistant</th>
             <th>classroom</th><th>date/time</th><th>duration</th></tr>
         </thead>
         <tbody>
-        <tr th:if="*{requests.empty}">
+        <tr th:if="*{lessons.empty}">
             <td colspan="2"> Нет заявок</td>
         </tr>
 
-        <tr th:each="request, itemStat: *{requests}" th:object="${request}">
+        <tr th:each="lesson, itemStat: *{lessons}" th:object="${lesson}">
             <td><span th:text="*{id}            "> id       </span></td>
             <td><span th:text="*{subject}       "> subject  </span></td>
             <td><span th:text="*{domain.name}   "> domain   </span></td>
@@ -37,28 +37,28 @@
     </table>
 
     <!-- Одобрение заявок -->
-    <form style="display: inline;" th:if="${!lessonService.requests.empty}"
-          th:action="@{/confirmRequests}" method="post" th:object="${lessonService}">
+    <form style="display: inline;" th:if="${!requests.lessons.empty}"
+          th:action="@{/confirmRequests}" method="post" th:object="${requests}">
         <table style="display: inline;">
             <thead>
             <tr><th>accept</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="request, itemStat: *{requests}">
+            <tr th:each="request, itemStat: *{lessons}">
                 <td><span>
-                <input type="hidden" name="id"          th:field="*{requests[__${itemStat.index}__].id}">
-                <input type="hidden" name="subject"     th:field="*{requests[__${itemStat.index}__].subject}">
-                <input type="hidden" name="domain.name" th:field="*{requests[__${itemStat.index}__].domain}">
-                <input type="hidden" name="tutor"       th:field="*{requests[__${itemStat.index}__].tutor}">
-                <input type="hidden" name="assistant"   th:field="*{requests[__${itemStat.index}__].assistant}">
-                <input type="hidden" name="classroom"   th:field="*{requests[__${itemStat.index}__].classroom}">
-                <input type="hidden" name="dateTime"    th:field="*{requests[__${itemStat.index}__].dateTime}">
-                <input type="hidden" name="duration"    th:field="*{requests[__${itemStat.index}__].duration}">
-                <input type="hidden" name="duration"    th:field="*{requests[__${itemStat.index}__].isNotActive}">
-                <input type="checkbox" name="form"      th:value="*{requests[__${itemStat.index}__].id}"
+                <input type="hidden" name="id"          th:field="*{lessons[__${itemStat.index}__].id}">
+                <input type="hidden" name="subject"     th:field="*{lessons[__${itemStat.index}__].subject}">
+                <input type="hidden" name="domain.name" th:field="*{lessons[__${itemStat.index}__].domain}">
+                <input type="hidden" name="tutor"       th:field="*{lessons[__${itemStat.index}__].tutor}">
+                <input type="hidden" name="assistant"   th:field="*{lessons[__${itemStat.index}__].assistant}">
+                <input type="hidden" name="classroom"   th:field="*{lessons[__${itemStat.index}__].classroom}">
+                <input type="hidden" name="dateTime"    th:field="*{lessons[__${itemStat.index}__].dateTime}">
+                <input type="hidden" name="duration"    th:field="*{lessons[__${itemStat.index}__].duration}">
+                <input type="hidden" name="duration"    th:field="*{lessons[__${itemStat.index}__].isNotActive}">
+                <input type="checkbox" name="form"      th:value="*{lessons[__${itemStat.index}__].id}"
 
-                       th:field="*{requests[__${itemStat.index}__].isAccepted}" />
+                       th:field="*{lessons[__${itemStat.index}__].isAccepted}" />
             </span></td>
             </tr>
             </tbody>
@@ -67,27 +67,27 @@
     </form>
 
     <!-- Отклонение заявок -->
-    <form style="display: inline;" th:if="${!lessonService.requests.empty}"
-          th:action="@{/discardRequests}" method="post" th:object="${lessonService}">
+    <form style="display: inline;" th:if="${!requests.lessons.empty}"
+          th:action="@{/discardRequests}" method="post" th:object="${requests}">
         <table style="display: inline;">
             <thead>
             <tr><th>discard</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="request, itemStat: *{requests}">
+            <tr th:each="lesson, itemStat: *{lessons}">
                 <td><span>
-                <input type="hidden" name="id"          th:field="*{requests[__${itemStat.index}__].id}">
-                <input type="hidden" name="subject"     th:field="*{requests[__${itemStat.index}__].subject}">
-                <input type="hidden" name="domain.name" th:field="*{requests[__${itemStat.index}__].domain}">
-                <input type="hidden" name="tutor"       th:field="*{requests[__${itemStat.index}__].tutor}">
-                <input type="hidden" name="assistant"   th:field="*{requests[__${itemStat.index}__].assistant}">
-                <input type="hidden" name="classroom"   th:field="*{requests[__${itemStat.index}__].classroom}">
-                <input type="hidden" name="dateTime"    th:field="*{requests[__${itemStat.index}__].dateTime}">
-                <input type="hidden" name="duration"    th:field="*{requests[__${itemStat.index}__].duration}">
-                <input type="checkbox" name="form"      th:value="*{requests[__${itemStat.index}__].id}"
+                <input type="hidden" name="id"          th:field="*{lessons[__${itemStat.index}__].id}">
+                <input type="hidden" name="subject"     th:field="*{lessons[__${itemStat.index}__].subject}">
+                <input type="hidden" name="domain.name" th:field="*{lessons[__${itemStat.index}__].domain}">
+                <input type="hidden" name="tutor"       th:field="*{lessons[__${itemStat.index}__].tutor}">
+                <input type="hidden" name="assistant"   th:field="*{lessons[__${itemStat.index}__].assistant}">
+                <input type="hidden" name="classroom"   th:field="*{lessons[__${itemStat.index}__].classroom}">
+                <input type="hidden" name="dateTime"    th:field="*{lessons[__${itemStat.index}__].dateTime}">
+                <input type="hidden" name="duration"    th:field="*{lessons[__${itemStat.index}__].duration}">
+                <input type="checkbox" name="form"      th:value="*{lessons[__${itemStat.index}__].id}"
 
-                       th:field="*{requests[__${itemStat.index}__].isNotActive}" />
+                       th:field="*{lessons[__${itemStat.index}__].isNotActive}" />
             </span></td>
             </tr>
             </tbody>
@@ -97,16 +97,16 @@
     <br/><br/>
 
     <!-- Вывод расписание -->
-    <table style="display: inline;" th:object="${lessonService}">
-        <thead  th:if="*{!schedule.empty}">
+    <table style="display: inline;" th:object="${schedule}">
+        <thead  th:if="*{!lessons.empty}">
         <tr><th>id</th><th>subject</th><th>domain</th><th>tutor</th><th>assistant</th>
             <th>classroom</th><th>date/time</th><th>duration</th></tr>
         </thead>
         <tbody>
-        <tr th:if="*{schedule.empty}">
+        <tr th:if="*{lessons.empty}">
             <td colspan="2"> Нет записей </td>
         </tr>
-        <tr th:each="lesson, itemStat: *{schedule}" th:object="${lesson}">
+        <tr th:each="lesson, itemStat: *{lessons}" th:object="${lesson}">
             <td><span th:text="*{id}            "> id </span></td>
             <td><span th:text="*{subject}       "> subject </span></td>
             <td><span th:text="*{domain.name}   "> domain </span></td>
@@ -120,26 +120,26 @@
     </table>
 
     <!-- Отмена занятия -->
-    <form style="display: inline;" th:if="${!lessonService.schedule.empty}"
-          th:action="@{/discardLessons}" method="post" th:object="${lessonService}">
+    <form style="display: inline;" th:if="${!schedule.lessons.empty}"
+          th:action="@{/discardLessons}" method="post" th:object="${schedule}">
         <table style="display: inline;">
             <thead>
             <tr><th>discard</th></tr>
             </thead>
             <tbody>
-            <tr th:each="lesson, itemStat: *{schedule}">
+            <tr th:each="lesson, itemStat: *{lessons}">
                 <td><span>
-                    <input type="hidden" name="id"          th:field="*{schedule[__${itemStat.index}__].id}">
-                    <input type="hidden" name="subject"     th:field="*{schedule[__${itemStat.index}__].subject}">
-                    <input type="hidden" name="domain.name" th:field="*{schedule[__${itemStat.index}__].domain}">
-                    <input type="hidden" name="tutor"       th:field="*{schedule[__${itemStat.index}__].tutor}">
-                    <input type="hidden" name="assistant"   th:field="*{schedule[__${itemStat.index}__].assistant}">
-                    <input type="hidden" name="classroom"   th:field="*{schedule[__${itemStat.index}__].classroom}">
-                    <input type="hidden" name="dateTime"    th:field="*{schedule[__${itemStat.index}__].dateTime}">
-                    <input type="hidden" name="duration"    th:field="*{schedule[__${itemStat.index}__].duration}">
-                    <input type="checkbox" name="form"      th:value="*{schedule[__${itemStat.index}__].id}"
+                    <input type="hidden" name="id"          th:field="*{lessons[__${itemStat.index}__].id}">
+                    <input type="hidden" name="subject"     th:field="*{lessons[__${itemStat.index}__].subject}">
+                    <input type="hidden" name="domain.name" th:field="*{lessons[__${itemStat.index}__].domain}">
+                    <input type="hidden" name="tutor"       th:field="*{lessons[__${itemStat.index}__].tutor}">
+                    <input type="hidden" name="assistant"   th:field="*{lessons[__${itemStat.index}__].assistant}">
+                    <input type="hidden" name="classroom"   th:field="*{lessons[__${itemStat.index}__].classroom}">
+                    <input type="hidden" name="dateTime"    th:field="*{lessons[__${itemStat.index}__].dateTime}">
+                    <input type="hidden" name="duration"    th:field="*{lessons[__${itemStat.index}__].duration}">
+                    <input type="checkbox" name="form"      th:value="*{lessons[__${itemStat.index}__].id}"
 
-                           th:field="*{schedule[__${itemStat.index}__].isNotAccepted}" />
+                           th:field="*{lessons[__${itemStat.index}__].isNotAccepted}" />
                 </span></td>
             </tr>
             </tbody>
