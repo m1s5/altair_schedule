@@ -3,7 +3,7 @@ package io.kissmara.altair_schedule.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LessonDto {
+public class LessonsDto {
     private List<Lesson> lessons;
 
     public List<Lesson> getLessons() {
@@ -13,10 +13,10 @@ public class LessonDto {
         this.lessons = lessons;
     }
 
-    public LessonDto(){
+    public LessonsDto(){
         lessons = new ArrayList<>();
     }
-    public LessonDto(List<Lesson> lessons){
+    public LessonsDto(List<Lesson> lessons){
         this.lessons=lessons;
     }
     public void addLesson(Lesson lesson){

@@ -52,8 +52,8 @@ public class DefaultController {
 
     @GetMapping("/manageLessons")
     public String manageLessons(Model model){
-        LessonDto requests = new LessonDto(lessonService.getRequests());
-        LessonDto schedule = new LessonDto(lessonService.getSchedule());
+        LessonsDto requests = new LessonsDto(lessonService.getRequests());
+        LessonsDto schedule = new LessonsDto(lessonService.getSchedule());
 
         model.addAttribute("requests", requests);
         model.addAttribute("schedule", schedule);
@@ -61,7 +61,7 @@ public class DefaultController {
     }
 
     @PostMapping("/confirmRequests")
-    public String confirmRequests(Model model, @ModelAttribute("form") LessonDto form){
+    public String confirmRequests(Model model, @ModelAttribute("form") LessonsDto form){
         int size = form.getLessons().size();
         System.out.println(size);
         if(form.getLessons().stream().noneMatch(Lesson::getIsAccepted)) return "nothingToConfirm";
@@ -73,7 +73,7 @@ public class DefaultController {
     }
 
     @PostMapping("/discardRequests")
-    public String discardRequest(Model model, @ModelAttribute("form") LessonDto form){
+    public String discardRequest(Model model, @ModelAttribute("form") LessonsDto form){
 
         if(form.getLessons().stream().noneMatch(Lesson::getIsNotActive)) return "nothingToDiscard";
 
@@ -84,7 +84,7 @@ public class DefaultController {
     }
 
     @PostMapping("/discardLessons")
-    public String discardLessons(Model model, @ModelAttribute("form") LessonDto form){
+    public String discardLessons(Model model, @ModelAttribute("form") LessonsDto form){
 
         if(form.getLessons().stream().allMatch(Lesson::getIsAccepted)) return "nothingToDiscard";
         for(Lesson lesson: form.getLessons()){
