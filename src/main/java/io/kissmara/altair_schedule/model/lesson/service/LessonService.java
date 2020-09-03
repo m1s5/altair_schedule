@@ -1,6 +1,7 @@
-package io.kissmara.altair_schedule.model;
+package io.kissmara.altair_schedule.model.lesson.service;
 
 
+import io.kissmara.altair_schedule.model.lesson.entities.Lesson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

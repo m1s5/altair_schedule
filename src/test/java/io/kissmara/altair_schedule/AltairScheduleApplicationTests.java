@@ -1,8 +1,8 @@
 package io.kissmara.altair_schedule;
 
-import io.kissmara.altair_schedule.model.Domain;
-import io.kissmara.altair_schedule.model.Lesson;
-import io.kissmara.altair_schedule.model.LessonService;
+import io.kissmara.altair_schedule.model.lesson.entities.Domain;
+import io.kissmara.altair_schedule.model.lesson.entities.Lesson;
+import io.kissmara.altair_schedule.model.lesson.service.LessonService;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 

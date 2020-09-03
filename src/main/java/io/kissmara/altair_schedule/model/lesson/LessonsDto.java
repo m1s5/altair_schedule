@@ -1,4 +1,6 @@
-package io.kissmara.altair_schedule.model;
+package io.kissmara.altair_schedule.model.lesson;
+
+import io.kissmara.altair_schedule.model.lesson.entities.Lesson;
 
 import java.util.ArrayList;
 import java.util.List;
