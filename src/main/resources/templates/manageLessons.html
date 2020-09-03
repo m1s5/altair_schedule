@@ -38,7 +38,7 @@
 
     <!-- Одобрение заявок -->
     <form style="display: inline;" th:if="${!requests.lessons.empty}"
-          th:action="@{/confirmRequests}" method="post" th:object="${requests}">
+          th:action="@{/admin/confirmRequests}" method="post" th:object="${requests}">
         <table style="display: inline;">
             <thead>
             <tr><th>accept</th>
@@ -68,7 +68,7 @@
 
     <!-- Отклонение заявок -->
     <form style="display: inline;" th:if="${!requests.lessons.empty}"
-          th:action="@{/discardRequests}" method="post" th:object="${requests}">
+          th:action="@{/admin/discardRequests}" method="post" th:object="${requests}">
         <table style="display: inline;">
             <thead>
             <tr><th>discard</th>
@@ -121,7 +121,7 @@
 
     <!-- Отмена занятия -->
     <form style="display: inline;" th:if="${!schedule.lessons.empty}"
-          th:action="@{/discardLessons}" method="post" th:object="${schedule}">
+          th:action="@{/admin/discardLessons}" method="post" th:object="${schedule}">
         <table style="display: inline;">
             <thead>
             <tr><th>discard</th></tr>
@@ -145,6 +145,25 @@
             </tbody>
         </table>
         <input type="submit" value="Отменить">
+    </form>
+
+
+    <!-- Установка расписания ВУЗа -->
+    <form th:action="@{/admin/setBaseSchedule}" method="post" enctype="multipart/form-data">
+        <p>Установить базовое расписание</p>
+        <!--
+        <label for="mainSchedule_1">1 курс:</label>
+            <input style="display: inline;" type="file" id="mainSchedule_1" th:field="*{schedules[0]}" required accept=".xlsx"><br>
+        <label for="mainSchedule_2">2 курс:</label>
+            <input style="display: inline;" type="file" id="mainSchedule_2" th:field="*{schedules[1]}" required accept=".xlsx"><br>
+        <label for="mainSchedule_3">3 курс:</label>
+            <input style="display: inline;" type="file" id="mainSchedule_3" th:field="*{schedules[2]}" required accept=".xlsx"><br>
+        <label for="mainSchedule_4">4 курс:</label>
+            <input style="display: inline;" type="file" id="mainSchedule_4" th:field="*{schedules[3]}" required accept=".xlsx"><br>-->
+        <label for="baseSchedule">Выберите файлы(Ctrl+клик на файл): </label>
+            <input style="display: inline;" type="file" name="baseSchedule"
+                   id="baseSchedule" accept=".xlsx" multiple required>
+        <input type="submit" value="Отправить"> <span style="color: red">Данное действие обнулит расписание!!!</span>
     </form>
 
     <br><br>

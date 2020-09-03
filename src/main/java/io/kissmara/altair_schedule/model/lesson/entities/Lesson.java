@@ -1,12 +1,14 @@
-package io.kissmara.altair_schedule.model;
+package io.kissmara.altair_schedule.model.lesson.entities;
 
 
+import io.kissmara.altair_schedule.model.lesson.entities.Domain;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 
@@ -15,14 +17,14 @@ public class Lesson {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private String subject;
-    private Domain domain;
-    private String tutor;
+    @NotNull private String subject;
+    @NotNull private Domain domain;
+    @NotNull private String tutor;
     private String assistant;
-    private String classroom;
+    @NotNull private String classroom;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    private LocalDateTime dateTime;
-    private Integer duration;
+    @NotNull private LocalDateTime dateTime;
+    @NotNull private Integer duration;
     private boolean isAccepted = false;
     private boolean isNotActive = false;
 

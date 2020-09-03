@@ -16,41 +16,75 @@
 <h1>
     Новое занятие
 </h1>
-<form class="grid" action="#" th:action="@{/requestLesson}" method="post" th:object="${request}">
-    <label>
+<form class="grid" action="#" th:action="@{/user/requestLesson}" method="post" th:object="${request}">
+    <label for="subject">
         Предмет
-    </label><input type="text" th:field="*{subject}"/>
-    <label th:for="domain">
-        Домен
-    </label>
-    <select th:field="*{domain}">
-        <option th:each="domain : ${domains}"
-                th:text="${domain.name}"
-                th:value="${domain}"></option>
-    </select>
-    <label>
-        Преподаватель
-    </label><input type="text" required th:field="*{tutor}"/>
-    <label>
-        Ассистент
-    </label><input type="text" th:field="*{assistant}"/>
-    <label>
-        Аудитория
-    </label> <input type="text" required th:field="*{classroom}"/>
-    <label>
-        Время/Дата
-    </label>
-    <input type="datetime-local" required th:field="*{dateTime}"
-           th:value="${minTime}"
-           th:min="${minTime}" th:max="${maxTime}">
+    </label><input id="subject"
+                   required
+                   type="text"
+                   th:field="*{subject}"/>
 
-    <label>
+
+    <label for="domain">
+        Домен
+    </label><select required
+                    id="domain"
+                    th:field="*{domain}">
+
+        <option    th:each="domain : ${domains}"
+                   th:text="${domain.name}"
+                   th:value="${domain}">
+        </option>
+    </select>
+
+
+    <label for="tutor">
+        Преподаватель
+    </label><input id="tutor"
+                   type="text"
+                   required
+                   th:field="*{tutor}"/>
+
+
+    <label for="assistant">
+        Ассистент
+    </label><input id="assistant"
+                   type="text"
+                   th:field="*{assistant}"/>
+
+
+    <label for="classroom">
+        Аудитория
+    </label> <input id="classroom"
+                    type="text"
+                    required
+                    th:field="*{classroom}"/>
+
+
+    <label for="dateTime">
+        Время/Дата
+    </label> <input id="dateTime"
+                    type="datetime-local"
+                    required
+                    th:field="*{dateTime}"
+                    th:value="${minTime}"
+                    th:min="${minTime}"
+                    th:max="${maxTime}">
+
+
+    <label for="duration">
         Длительность(45 мин.)
-    </label> <input type="number" min="1" value="1" th:field="*{duration}"/>
+    </label> <input id="duration"
+                    required
+                    type="number"
+                    min="1"
+                    max="12"
+                    value="1"
+                    th:field="*{duration}"/>
 
     <input type="submit"/>
 <br><br>
-    <a href="/">Список уроков</a>
+    <a href="/">Расписание</a>
 </form>
 </body>
 </html>
