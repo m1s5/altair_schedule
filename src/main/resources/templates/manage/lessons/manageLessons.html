@@ -26,7 +26,7 @@
         <tr th:each="lesson, itemStat: *{lessons}" th:object="${lesson}">
             <td><span th:text="*{id}            "> id       </span></td>
             <td><span th:text="*{subject}       "> subject  </span></td>
-            <td><span th:text="*{domain.name}   "> domain   </span></td>
+            <td><span th:text="*{domain.domain}   "> domain   </span></td>
             <td><span th:text="*{tutor}         "> tutor    </span></td>
             <td><span th:text="*{assistant}     "> assistant </span></td>
             <td><span th:text="*{classroom}     "> classroom </span></td>
@@ -49,7 +49,7 @@
                 <td><span>
                 <input type="hidden" name="id"          th:field="*{lessons[__${itemStat.index}__].id}">
                 <input type="hidden" name="subject"     th:field="*{lessons[__${itemStat.index}__].subject}">
-                <input type="hidden" name="domain.name" th:field="*{lessons[__${itemStat.index}__].domain}">
+                <input type="hidden" name="domain.domain" th:field="*{lessons[__${itemStat.index}__].domain}">
                 <input type="hidden" name="tutor"       th:field="*{lessons[__${itemStat.index}__].tutor}">
                 <input type="hidden" name="assistant"   th:field="*{lessons[__${itemStat.index}__].assistant}">
                 <input type="hidden" name="classroom"   th:field="*{lessons[__${itemStat.index}__].classroom}">
@@ -79,7 +79,7 @@
                 <td><span>
                 <input type="hidden" name="id"          th:field="*{lessons[__${itemStat.index}__].id}">
                 <input type="hidden" name="subject"     th:field="*{lessons[__${itemStat.index}__].subject}">
-                <input type="hidden" name="domain.name" th:field="*{lessons[__${itemStat.index}__].domain}">
+                <input type="hidden" name="domain.domain" th:field="*{lessons[__${itemStat.index}__].domain}">
                 <input type="hidden" name="tutor"       th:field="*{lessons[__${itemStat.index}__].tutor}">
                 <input type="hidden" name="assistant"   th:field="*{lessons[__${itemStat.index}__].assistant}">
                 <input type="hidden" name="classroom"   th:field="*{lessons[__${itemStat.index}__].classroom}">
@@ -109,7 +109,7 @@
         <tr th:each="lesson, itemStat: *{lessons}" th:object="${lesson}">
             <td><span th:text="*{id}            "> id </span></td>
             <td><span th:text="*{subject}       "> subject </span></td>
-            <td><span th:text="*{domain.name}   "> domain </span></td>
+            <td><span th:text="*{domain.domain}   "> domain </span></td>
             <td><span th:text="*{tutor}         "> tutor </span></td>
             <td><span th:text="*{assistant}     "> assistant </span></td>
             <td><span th:text="*{classroom}     "> classroom </span></td>
@@ -131,7 +131,7 @@
                 <td><span>
                     <input type="hidden" name="id"          th:field="*{lessons[__${itemStat.index}__].id}">
                     <input type="hidden" name="subject"     th:field="*{lessons[__${itemStat.index}__].subject}">
-                    <input type="hidden" name="domain.name" th:field="*{lessons[__${itemStat.index}__].domain}">
+                    <input type="hidden" name="domain.domain" th:field="*{lessons[__${itemStat.index}__].domain}">
                     <input type="hidden" name="tutor"       th:field="*{lessons[__${itemStat.index}__].tutor}">
                     <input type="hidden" name="assistant"   th:field="*{lessons[__${itemStat.index}__].assistant}">
                     <input type="hidden" name="classroom"   th:field="*{lessons[__${itemStat.index}__].classroom}">

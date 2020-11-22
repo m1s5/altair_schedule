@@ -1,26 +1,22 @@
 package io.kissmara.altair_schedule.model.lesson.entities;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
 public enum Domain {
     CHEMISTRY("Химия"),
     MATH("Математика"),
     PHYSICS("Физика"),
     CODE("Программирование"),
     RADIO("Радиоэлектроника"),
-    SCHEDULED("");
+    SCHEDULED("Из расписания");
 
-    @Id
-    private final String name;
+    //@Id
+    private final String domain;
     Domain(String name){
-        this.name = name;
+        this.domain = name;
     }
 
-    Domain() { name = "";}
+    Domain() { domain = "";}
 
-    public String getName() {
-        return name;
+    public String getDomain() {
+        return domain;
     }
 }

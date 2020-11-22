@@ -1,19 +1,21 @@
 package io.kissmara.altair_schedule.model.lesson.entities;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import lombok.Data;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Data
 public class Tutor {
     @Id
     private String name;
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
+    @Column
+    @Enumerated
+    @ElementCollection(targetClass = Domain.class)
+    private List<Domain> domains;
+    public boolean equals(Tutor tutor){
+        return this.name.equals(tutor.name);
     }
 }

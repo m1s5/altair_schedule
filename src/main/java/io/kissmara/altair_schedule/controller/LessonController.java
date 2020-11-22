@@ -46,13 +46,13 @@ public class LessonController {
         model.addAttribute("minTime", time);
         time = LocalDateTime.now().plusMonths(6).truncatedTo(ChronoUnit.MINUTES);
         model.addAttribute("maxTime", time);
-        return "requestLesson";
+        return "request/requestLesson";
     }
     @PostMapping("/user/requestLesson")
     public String requestLesson(@ModelAttribute("request") Lesson request) {
         if(lessonService.addRequest(request))
-            return "okRequest";
-        return "failedRequest";
+            return "request/okRequest";
+        return "request/failedRequest";
     }
 
 
@@ -64,47 +64,47 @@ public class LessonController {
 
         model.addAttribute("requests", requests);
         model.addAttribute("schedule", schedule);
-        return "manageLessons";
+        return "/manage/lessons/manageLessons";
     }
 
     //TODO: дописать обработку файлов
     @PostMapping("/admin/manageLessons")
     public String confirmBaseSchedule(Model model,
                                       @RequestParam("baseSchedule")MultipartFile[] files){
-        return "manageLessons";
+        return "/manage/lessons/manageLessons";
     }
 
     @PostMapping("/admin/confirmRequests")
     public String confirmRequests(Model model, @ModelAttribute("form") LessonsDto form){
         int size = form.getLessons().size();
         System.out.println(size);
-        if(form.getLessons().stream().noneMatch(Lesson::getIsAccepted)) return "nothingToConfirm";
+        if(form.getLessons().stream().noneMatch(Lesson::isAccepted)) return "/manage/lessons/confirm/nothingToConfirm";
         List<Integer> failedList = lessonService.lessonTransactionByObject(form.getLessons());
         if(failedList.isEmpty())
-            return "okConfirm";
+            return "/manage/lessons/confirm/okConfirm";
         model.addAttribute("failedList", failedList);
-        return "failedConfirm";
+        return "/manage/lessons/confirm/failedConfirm";
     }
 
     @PostMapping("/admin/discardRequests")
     public String discardRequest(Model model, @ModelAttribute("form") LessonsDto form){
 
-        if(form.getLessons().stream().noneMatch(Lesson::getIsNotActive)) return "nothingToDiscard";
+        if(form.getLessons().stream().noneMatch(Lesson::isNotActive)) return "/manage/lessons/discard/nothingToDiscard";
 
         for(Lesson lesson: form.getLessons()){
-            if(lesson.getIsNotActive()) lessonService.removeLesson(lesson);
+            if(lesson.isNotActive()) lessonService.removeLesson(lesson);
         }
-            return "okDiscard";
+            return "/manage/lessons/discard/okDiscard";
     }
 
     @PostMapping("/admin/discardLessons")
     public String discardLessons(Model model, @ModelAttribute("form") LessonsDto form){
 
-        if(form.getLessons().stream().allMatch(Lesson::getIsAccepted)) return "nothingToDiscard";
+        if(form.getLessons().stream().allMatch(Lesson::isAccepted)) return "/manage/lessons/discard/nothingToDiscard";
         for(Lesson lesson: form.getLessons()){
-            if(!lesson.getIsAccepted()) lessonService.addRequest(lesson);
+            if(!lesson.isAccepted()) lessonService.addRequest(lesson);
         }
-            return "okDiscard";
+            return "/manage/lessons/discard/okDiscard";
     }
 
 

@@ -25,7 +25,7 @@
     <tr th:each="lesson : ${lessons}" th:object="${lesson}">
         <td><span th:text="*{id}">          id </span></td>
         <td><span th:text="*{subject}">     subject </span></td>
-        <td><span th:text="*{domain.name}"> domain </span></td>
+        <td><span th:text="*{domain.domain}"> domain </span></td>
         <td><span th:text="*{tutor}">       tutor </span></td>
         <td><span th:text="*{assistant}">   assistant </span></td>
         <td><span th:text="*{classroom}">   classroom </span></td>

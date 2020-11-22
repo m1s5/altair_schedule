@@ -1,35 +1,25 @@
 package io.kissmara.altair_schedule.model.lesson.entities;
 
 
-import javax.persistence.*;
-import java.util.ArrayList;
+import lombok.Data;
+
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
 import java.util.List;
 
 @Entity
+@Data
 public class Classroom {
     @Id
-    private String name;
+    private String classroom;
     //TODO: РАЗОБРАТЬСЯ ЧТО ЗДЕСЬ ПРОИСХОДИТ
+
     @Column
     @Enumerated
     @ElementCollection(targetClass = Domain.class)
     private List<Domain> domains;
 
-
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public List<Domain> getDomains() {
-        return domains;
-    }
-
-    public void setDomains(List<Domain> domains) {
-        this.domains = domains;
-    }
 }

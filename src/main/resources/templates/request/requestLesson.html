@@ -32,7 +32,7 @@
                     th:field="*{domain}">
 
         <option    th:each="domain : ${domains}"
-                   th:text="${domain.name}"
+                   th:text="${domain.domain}"
                    th:value="${domain}">
         </option>
     </select>

@@ -16,20 +16,20 @@ public class LessonService {
     private LessonRepository lessonRepository;
 
     private static void accept(Lesson lesson) {
-        lesson.setIsAccepted(true);
+        lesson.setAccepted(true);
     }
 
 
     public List<Lesson> getRequests(){
         List<Lesson> requests = new ArrayList<>();
         lessonRepository.findAll().forEach(requests::add);
-        return requests.stream().filter(lesson -> !lesson.getIsAccepted()).collect(Collectors.toList());
+        return requests.stream().filter(lesson -> !lesson.isAccepted()).collect(Collectors.toList());
     }
 
     public List<Lesson> getSchedule(){
         List<Lesson> lessons = new ArrayList<>();
         lessonRepository.findAll().forEach(lessons::add);
-        return lessons.stream().filter(Lesson::getIsAccepted).collect(Collectors.toList());
+        return lessons.stream().filter(Lesson::isAccepted).collect(Collectors.toList());
     }
 
     public boolean addRequest(Lesson lesson){
@@ -53,7 +53,7 @@ public class LessonService {
     }
     public List<Integer> lessonTransactionByObject(List<Lesson> requests){
         List<Integer> failed = new ArrayList<>();
-        requests = requests.stream().filter(Lesson::getIsAccepted).collect(Collectors.toList());
+        requests = requests.stream().filter(Lesson::isAccepted).collect(Collectors.toList());
         for (Lesson request : requests)
             if (isOverlapped(request, getSchedule()) || isOverlapped(request, requests)) failed.add(request.getId());
         if(failed.isEmpty())
@@ -84,7 +84,7 @@ public class LessonService {
                 .anyMatch(lesson1 ->  lesson1.getClassroom().equals(lesson.getClassroom()) ||
                                     lesson1.getTutor().equals(lesson.getTutor())         ||
                                    (lesson1.getAssistant().equals(lesson.getAssistant()) &&
-                                   !lesson1.getAssistant().isEmpty()));
+                                   !(lesson1.getAssistant() == null)));
     }
 
 }
