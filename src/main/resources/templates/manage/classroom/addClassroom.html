@@ -16,7 +16,7 @@
 <h1>
     Новая аудитория
 </h1>
-<form class="grid" action="#" th:action="@{/admin/addTutor}" method="post" th:object="${classroom}">
+<form class="grid" action="#" th:action="@{/admin/addClassroom}" method="post" th:object="${classroom}">
     <label for="classroom">
         Имя
     </label><input id="classroom"
@@ -43,6 +43,8 @@
     <input type="submit"/>
     <br><br>
     <a href="/">Расписание</a>
+    <a href="#" onclick="history.back();">Назад</a>
+    <a href="/admin/manageLessons">Панель управления</a>
 </form>
 </body>
 </html>

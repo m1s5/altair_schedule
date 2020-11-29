@@ -15,12 +15,15 @@
 </header>
 <body class="modal">
 <h1>
-    OK
+    Неудачное подтверждение
 </h1>
-<br><br>
-<a href="/admin/manageRequests">Назад</a>
+<br><br><br>
+<div th:each="failed, itemStat: ${failedList}">
+    <div th:text="${failed}"></div>
+</div>
 <a href="/">Расписание</a>
-
+<a href="#" onclick="history.back();">Назад</a>
+<a href="/admin/manageLessons">Панель управления</a>
 
 </body>
 </html>

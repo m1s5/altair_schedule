@@ -11,12 +11,18 @@
     <a style="text-align: right" href="/logout">Logout</a>
 </header>
 <body>
+<a href="/admin/addClassroom">добавить аудиторию</a>
+<a href="/admin/addTutor">добавить преподавателя</a>
+<a href="/admin/addAssistant">добавить ассистента</a>
+<br>
+<a href="/admin/addLesson">добавить запись</a>
+<br><br>
 
     <!-- Вывод заявок -->
     <table style="display: inline;" th:object="${requests}">
         <thead  th:if="*{!lessons.empty}">
-        <tr><th>id</th><th>subject</th><th>domain</th><th>tutor</th><th>assistant</th>
-            <th>classroom</th><th>date/time</th><th>duration</th></tr>
+        <tr><th>id</th><th>предмет</th><th>домен</th><th>преподаватель</th><th>ассистент</th>
+            <th>аудитория</th><th>дата/время</th><th>продолжительность</th></tr>
         </thead>
         <tbody>
         <tr th:if="*{lessons.empty}">
@@ -24,14 +30,14 @@
         </tr>
 
         <tr th:each="lesson, itemStat: *{lessons}" th:object="${lesson}">
-            <td><span th:text="*{id}            "> id       </span></td>
-            <td><span th:text="*{subject}       "> subject  </span></td>
-            <td><span th:text="*{domain.domain}   "> domain   </span></td>
-            <td><span th:text="*{tutor}         "> tutor    </span></td>
-            <td><span th:text="*{assistant}     "> assistant </span></td>
-            <td><span th:text="*{classroom}     "> classroom </span></td>
-            <td><span th:text="*{dateTime}      "> date/time </span></td>
-            <td><span th:text="*{duration}      "> duration  </span></td>
+            <td><span th:text="*{id}                 "> id       </span></td>
+            <td><span th:text="*{subject}            "> subject  </span></td>
+            <td><span th:text="*{domain.domain}      "> domain   </span></td>
+            <td><span th:text="*{tutor.name}         "> tutor    </span></td>
+            <td><span th:text="*{assistant?.name}     "> assistant </span></td>
+            <td><span th:text="*{classroom.classroom}"> classroom </span></td>
+            <td><span th:text="*{dateTime}           "> date/time </span></td>
+            <td><span th:text="*{duration}           "> duration  </span></td>
         </tr>
         </tbody>
     </table>
@@ -99,22 +105,22 @@
     <!-- Вывод расписание -->
     <table style="display: inline;" th:object="${schedule}">
         <thead  th:if="*{!lessons.empty}">
-        <tr><th>id</th><th>subject</th><th>domain</th><th>tutor</th><th>assistant</th>
-            <th>classroom</th><th>date/time</th><th>duration</th></tr>
+        <tr><th>id</th><th>предмет</th><th>домен</th><th>преподаватель</th><th>ассистент</th>
+            <th>аудитория</th><th>дата/время</th><th>продолжительность</th></tr>
         </thead>
         <tbody>
         <tr th:if="*{lessons.empty}">
             <td colspan="2"> Нет записей </td>
         </tr>
         <tr th:each="lesson, itemStat: *{lessons}" th:object="${lesson}">
-            <td><span th:text="*{id}            "> id </span></td>
-            <td><span th:text="*{subject}       "> subject </span></td>
-            <td><span th:text="*{domain.domain}   "> domain </span></td>
-            <td><span th:text="*{tutor}         "> tutor </span></td>
-            <td><span th:text="*{assistant}     "> assistant </span></td>
-            <td><span th:text="*{classroom}     "> classroom </span></td>
-            <td><span th:text="*{dateTime}      "> date/time </span></td>
-            <td><span th:text="*{duration}      "> duration </span></td>
+            <td><span th:text="*{id}                 "> id </span></td>
+            <td><span th:text="*{subject}            "> предмет </span></td>
+            <td><span th:text="*{domain.domain}      "> домен </span></td>
+            <td><span th:text="*{tutor.name}         "> преподаватель </span></td>
+            <td><span th:text="*{assistant?.name}    "> ассистент </span></td>
+            <td><span th:text="*{classroom.classroom}"> аудитория </span></td>
+            <td><span th:text="*{dateTime}           "> дата/время </span></td>
+            <td><span th:text="*{duration}           "> продолжительность </span></td>
         </tr>
         </tbody>
     </table>
@@ -124,7 +130,7 @@
           th:action="@{/admin/discardLessons}" method="post" th:object="${schedule}">
         <table style="display: inline;">
             <thead>
-            <tr><th>discard</th></tr>
+            <tr><th>удалить</th></tr>
             </thead>
             <tbody>
             <tr th:each="lesson, itemStat: *{lessons}">
@@ -165,6 +171,9 @@
                    id="baseSchedule" accept=".xlsx" multiple required>
         <input type="submit" value="Отправить"> <span style="color: red">Данное действие обнулит расписание!!!</span>
     </form>
+
+    <br>
+    <a href="/admin/addUser">добавить пользователя</a>
 
     <br><br>
 

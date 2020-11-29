@@ -1,10 +1,11 @@
 package io.kissmara.altair_schedule.controller;
 
-import io.kissmara.altair_schedule.model.base_schedule.BaseScheduleDto;
-import io.kissmara.altair_schedule.model.lesson.entities.Domain;
-import io.kissmara.altair_schedule.model.lesson.entities.Lesson;
+import io.kissmara.altair_schedule.model.lesson.entities.*;
+import io.kissmara.altair_schedule.model.lesson.service.AssistantService;
+import io.kissmara.altair_schedule.model.lesson.service.ClassroomService;
 import io.kissmara.altair_schedule.model.lesson.service.LessonService;
 import io.kissmara.altair_schedule.model.lesson.LessonsDto;
+import io.kissmara.altair_schedule.model.lesson.service.TutorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -21,15 +22,30 @@ import java.util.Comparator;
 import java.util.List;
 
 @Controller
-public class LessonController {
-    @Autowired
-    public LessonService lessonService;
+public class RequestController {
+    @Autowired public LessonService lessonService;
+    @Autowired public TutorService tutorService;
+    @Autowired public ClassroomService classroomService;
+    @Autowired public AssistantService assistantService;
+
+
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     LocalDateTime time;
 
 
     @GetMapping("/")
     public String getSchedule(Model model){
+        {
+            Tutor tutor = new Tutor();
+            tutor.setName("Дмитрий Марач");
+            tutorService.addTutor(tutor);
+            Classroom classroom = new Classroom();
+            classroom.setClassroom("д206");
+            classroomService.addClassroom(classroom);
+            Assistant assistant = new Assistant();
+            assistant.setName("Добби");
+            assistantService.addAssistant(assistant);
+        }
         List<Lesson> schedule = lessonService.getSchedule();
         schedule.sort(Comparator.comparing(Lesson::getDateTime));
         model.addAttribute("lessons", schedule);
@@ -40,8 +56,17 @@ public class LessonController {
     @GetMapping("/user/requestLesson")
     public String requestLesson(Model model){
         Lesson request = new Lesson();
+        List<Assistant> assistants = assistantService.getAssistants();
+        /*Assistant empty_assistant = new Assistant();
+        empty_assistant.setName("Без ассистента");
+        assistants.add(empty_assistant);*/
+        assistants.add(null);
         model.addAttribute("request", request);
         model.addAttribute("domains", Domain.values());
+        model.addAttribute("tutors", tutorService.getTutors());
+        model.addAttribute("assistants", assistants);
+        model.addAttribute("classrooms", classroomService.getClassrooms());
+
         time = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
         model.addAttribute("minTime", time);
         time = LocalDateTime.now().plusMonths(6).truncatedTo(ChronoUnit.MINUTES);
@@ -50,61 +75,41 @@ public class LessonController {
     }
     @PostMapping("/user/requestLesson")
     public String requestLesson(@ModelAttribute("request") Lesson request) {
-        if(lessonService.addRequest(request))
+        if (lessonService.addRequest(request))
             return "request/okRequest";
         return "request/failedRequest";
-    }
-
-
-    @GetMapping("/admin/manageLessons")
-    public String manageLessons(Model model){
-        LessonsDto requests = new LessonsDto(lessonService.getRequests());
-        LessonsDto schedule = new LessonsDto(lessonService.getSchedule());
-        BaseScheduleDto baseScheduleDto = new BaseScheduleDto();
-
-        model.addAttribute("requests", requests);
-        model.addAttribute("schedule", schedule);
-        return "/manage/lessons/manageLessons";
-    }
-
-    //TODO: дописать обработку файлов
-    @PostMapping("/admin/manageLessons")
-    public String confirmBaseSchedule(Model model,
-                                      @RequestParam("baseSchedule")MultipartFile[] files){
-        return "/manage/lessons/manageLessons";
     }
 
     @PostMapping("/admin/confirmRequests")
     public String confirmRequests(Model model, @ModelAttribute("form") LessonsDto form){
         int size = form.getLessons().size();
-        System.out.println(size);
-        if(form.getLessons().stream().noneMatch(Lesson::isAccepted)) return "/manage/lessons/confirm/nothingToConfirm";
+        if(form.getLessons().stream().noneMatch(Lesson::getIsAccepted)) return "/manage/lesson/confirm/nothingToConfirm";
         List<Integer> failedList = lessonService.lessonTransactionByObject(form.getLessons());
         if(failedList.isEmpty())
-            return "/manage/lessons/confirm/okConfirm";
+            return "/manage/lesson/confirm/okConfirm";
         model.addAttribute("failedList", failedList);
-        return "/manage/lessons/confirm/failedConfirm";
+        return "/manage/lesson/confirm/failedConfirm";
     }
 
     @PostMapping("/admin/discardRequests")
-    public String discardRequest(Model model, @ModelAttribute("form") LessonsDto form){
+    public String discardRequest(@ModelAttribute("form") LessonsDto form){
 
-        if(form.getLessons().stream().noneMatch(Lesson::isNotActive)) return "/manage/lessons/discard/nothingToDiscard";
+        if(form.getLessons().stream().noneMatch(Lesson::getIsNotActive)) return "/manage/lesson/discard/nothingToDiscard";
 
         for(Lesson lesson: form.getLessons()){
-            if(lesson.isNotActive()) lessonService.removeLesson(lesson);
+            if(lesson.getIsNotActive()) lessonService.removeLesson(lesson);
         }
             return "/manage/lessons/discard/okDiscard";
     }
 
     @PostMapping("/admin/discardLessons")
-    public String discardLessons(Model model, @ModelAttribute("form") LessonsDto form){
+    public String discardLessons(@ModelAttribute("form") LessonsDto form){
 
-        if(form.getLessons().stream().allMatch(Lesson::isAccepted)) return "/manage/lessons/discard/nothingToDiscard";
+        if(form.getLessons().stream().allMatch(Lesson::getIsAccepted)) return "/manage/lesson/discard/nothingToDiscard";
         for(Lesson lesson: form.getLessons()){
-            if(!lesson.isAccepted()) lessonService.addRequest(lesson);
+            if(!lesson.getIsAccepted()) lessonService.addRequest(lesson);
         }
-            return "/manage/lessons/discard/okDiscard";
+            return "/manage/lesson/discard/okDiscard";
     }
 
 

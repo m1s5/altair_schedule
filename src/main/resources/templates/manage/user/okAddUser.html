@@ -15,14 +15,18 @@
 </header>
 <body class="modal">
 <h1>
-    Failed Confirm
+    OK
 </h1>
-<br><br><br>
-<div th:each="failed, itemStat: ${failedList}">
-    <div th:text="${failed}"></div>
-</div>
-<a href="/admin/manageLessons">Назад</a>
-<a href="/">Расписание</a>
+<div class="grid">
+    <span>Имя(логин):   </span> <span th:text="${user.username} "></span>
+    <span>Пароль:       </span> <span th:text="${user.password} "></span>
+    <span>Роль:         </span> <span th:text="${user.authority}"></span>
 
+</div>
+
+<br><br>
+<a href="/">Расписание</a>
+<a href="#" onclick="history.back();">Назад</a>
+<a href="/admin/manageLessons">Панель управления</a>
 </body>
 </html>

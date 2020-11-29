@@ -2,6 +2,7 @@ package io.kissmara.altair_schedule.model.lesson.entities;
 
 
 import lombok.Data;
+import lombok.Getter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 
+@Getter
 @Entity
 @Data
 public class Lesson {
@@ -25,7 +27,8 @@ public class Lesson {
     private boolean isNotActive = false;
 
 
-
+    public boolean getIsNotActive() { return isNotActive; }
+    public void setIsNotActive(boolean isNotActive) { this.isNotActive = isNotActive; }
 
     public boolean getIsNotAccepted() {
         return !isAccepted;
@@ -33,5 +36,13 @@ public class Lesson {
 
     public void setIsNotAccepted(boolean accepted) {
         isAccepted = !accepted;
+    }
+
+    public boolean getIsAccepted() {
+        return isAccepted;
+    }
+
+    public void setIsAccepted(boolean accepted) {
+        isAccepted = accepted;
     }
 }

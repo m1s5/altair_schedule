@@ -14,29 +14,37 @@
 </header>
 <body class="modal">
 <h1>
-    Новый преподаватель
+    Новый пользователь
 </h1>
-<form class="grid" action="#" th:action="@{/admin/addTutor}" method="post" th:object="${tutor}">
+<form class="grid" action="#" th:action="@{/admin/addUser}" method="post" th:object="${user}">
     <label for="name">
-        Имя
+        Имя(логин)
     </label><input id="name"
                    required
                    type="text"
-                   th:field="*{name}"/>
+                   th:field="*{username}"/>
 
-
-    <label for="domain">
-        Домен(Ctrl+выбор)
+    <label for="password">
+        Пароль
+    </label><input id="password"
+                   required
+                   type="text"
+                   th:field="*{password}"/>
+    <label for="authority">
+        Роль
     </label><select required
-                    multiple
-                    id="domain"
-                    th:field="*{domains}">
+                    id="authority"
+                    th:field="*{authority}">
 
-    <option    th:each="domain : ${domains}"
-               th:text="${domain.domain}"
-               th:value="${domain}">
-    </option>
-</select>
+        <option
+                   th:text="админ"
+                   th:value="ROLE_ADMIN">
+        </option>
+        <option
+                   th:text="пользователь"
+                   th:value="ROLE_USER">
+        </option>
+    </select>
 
 
 

@@ -18,13 +18,14 @@
     OK
 </h1>
 <div class="grid">
-    <span>Имя:          </span>   <span th:text="${tutor.name}"></span>
-    <span>Домены:            </span>   <div><div th:each="domain : ${tutor.domains}"
-                                                  th:text="${domain.domain}&#13"></div> </div>
+    <span>Имя:    </span>   <span     th:text="${classroom.classroom}"></span>
+    <span>Домены: </span>   <div><div th:each="domain : ${classroom.domains}"
+                                      th:text="${domain.domain}&#13"></div> </div>
 </div>
 
 <br><br>
-<a href="/user/requestLesson">Добавить заявку</a><br>
 <a href="/">Расписание</a>
+<a href="#" onclick="history.back();">Назад</a>
+<a href="/admin/manageLessons">Панель управления</a>
 </body>
 </html>

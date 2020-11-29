@@ -9,8 +9,7 @@ import java.util.List;
 
 @Service
 public class ClassroomService {
-    @Autowired
-    private ClassroomRepository classroomRepository;
+    @Autowired private ClassroomRepository classroomRepository;
 
 
     public List<Classroom> getClassrooms(){

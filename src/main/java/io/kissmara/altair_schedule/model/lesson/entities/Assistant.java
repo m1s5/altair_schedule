@@ -10,4 +10,8 @@ import javax.persistence.Id;
 public class Assistant {
     @Id
     private String name;
+
+    boolean equals(Assistant assistant){
+        return this.name.equals(assistant.name);
+    }
 }

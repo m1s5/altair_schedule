@@ -7,15 +7,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Spliterator;
-import java.util.Spliterators;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 @Service
 public class TutorService {
-    @Autowired
-    TutorRepository tutorRepository;
+    @Autowired private TutorRepository tutorRepository;
 
     public List<Tutor> getTutors(){
         List<Tutor> tutors = new ArrayList<>();

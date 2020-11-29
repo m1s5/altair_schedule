@@ -9,8 +9,7 @@ import java.util.List;
 
 @Service
 public class AssistantService {
-    @Autowired
-    AssistantRepository assistantRepository;
+    @Autowired private AssistantRepository assistantRepository;
 
 
     public List<Assistant> getAssistants(){

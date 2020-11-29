@@ -16,7 +16,7 @@
 <h1>
     Новое занятие
 </h1>
-<form class="grid" action="#" th:action="@{/user/requestLesson}" method="post" th:object="${request}">
+<form class="grid" action="#" th:action="@{/admin/addLesson}" method="post" th:object="${request}">
     <label for="subject">
         Предмет
     </label><input id="subject"
@@ -98,8 +98,8 @@
 
     <input type="submit"/>
 <br><br>
-    <a href="#" onclick="history.back();">Назад</a>
     <a href="/">Расписание</a>
+    <a href="#" onclick="history.back();">Назад</a>
 </form>
 </body>
 </html>
