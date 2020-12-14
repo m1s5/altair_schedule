@@ -99,7 +99,7 @@ public class RequestController {
         for(Lesson lesson: form.getLessons()){
             if(lesson.getIsNotActive()) lessonService.removeLesson(lesson);
         }
-            return "/manage/lessons/discard/okDiscard";
+            return "/manage/lesson/discard/okDiscard";
     }
 
     @PostMapping("/admin/discardLessons")

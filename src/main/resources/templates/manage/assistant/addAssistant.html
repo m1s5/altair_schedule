@@ -4,32 +4,67 @@
       xsi:schemaLocation="http://thymeleaf.org ">
 <head>
     <meta charset="UTF-8"/>
+
+    <meta content="width=device-width, initial-sacale=1" name="viewport">
+    <link crossorigin="anonymous"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+          rel="stylesheet">
+    <script crossorigin="anonymous"
+            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+
+
     <title>Altair Schedule</title>
-    <link th:href="@{/styles/style.css}" rel="stylesheet"/>
 </head>
 
-<header>
-    <a style="text-align: right" href="/login">Login</a><br>
-    <a style="text-align: right" href="/logout">Logout</a>
-</header>
-<body class="modal">
-<h1>
-    Новый ассистент
-</h1>
-<form class="grid" action="#" th:action="@{/admin/addAssistant}" method="post" th:object="${assistant}">
-    <label for="name">
-        Имя
-    </label><input id="name"
-                   required
-                   type="text"
-                   th:field="*{name}"/>
+
+<body style="height: 100%">
+
+<div class="container-fluid bg-info" style="height: 100%">
+    <header class="row">
+        <a class="btn btn-info" href="/login">Login</a><br>
+        <a class="btn btn-info" href="/logout">Logout</a>
+    </header>
+    <div class="container-fluid text-center col-3 col-offset-4"
+         style="background: white; padding: 100px; border-radius: 50px">
+        <h1>
+            новый ассистент
+        </h1>
+        <div class="row justify-content-center ">
+            <form action="#" class="form-container" method="post" th:action="@{/admin/addAssistant}"
+                  th:object="${assistant}">
+                <div class="form-group">
+                    <div class="row input-group-text">
+                        <label for="name">
+                            Имя
+                        </label><input id="name"
+                                       required
+                                       th:field="*{name}"
+                                       type="text"/>
+                    </div>
+                </div>
 
 
-    <input type="submit"/>
-    <br><br>
-    <a href="/">Расписание</a>
-    <a href="#" onclick="history.back();">Назад</a>
-    <a href="/admin/manageLessons">Панель управления</a>
-</form>
+                <div class="btn-group-vertical form-group input-group-btn row " style="width: 100%; margin-top: 1em">
+                    <input class="btn btn-success btn-block" type="submit"/>
+                    <a class="btn btn-danger" href="#" onclick="history.back();">Назад</a>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+    <div class="align-text-bottom">
+        <div class="row">
+        </div>
+        <div class="row">
+            <a class="btn btn-info row" href="/">Расписание</a>
+        </div>
+        <div class="row">
+            <a class="btn btn-info row" href="/admin/manageLessons">Панель управления</a>
+        </div>
+    </div>
+</div>
 </body>
 </html>

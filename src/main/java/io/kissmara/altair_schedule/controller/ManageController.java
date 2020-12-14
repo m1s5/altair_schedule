@@ -8,6 +8,7 @@ import io.kissmara.altair_schedule.model.lesson.service.LessonService;
 import io.kissmara.altair_schedule.model.lesson.service.TutorService;
 import io.kissmara.altair_schedule.model.user.User;
 import io.kissmara.altair_schedule.model.user.UserService;
+import org.apache.poi.util.NotImplemented;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -45,6 +46,7 @@ public class ManageController {
     }
 
     //TODO: дописать обработку файлов
+    @NotImplemented
     @PostMapping("/admin/manageLessons")
     public String confirmBaseSchedule(@RequestParam("baseSchedule") MultipartFile[] files){
         System.out.println(files.length);
@@ -137,7 +139,6 @@ public class ManageController {
     }
     @PostMapping("/admin/addLesson")
     public String addLesson(@ModelAttribute("request") Lesson request) {
-        System.out.println(request);
         if (lessonService.addRequest(request)){
             lessonService.addLesson(request.getId());
             lessonService.addRequest(request);

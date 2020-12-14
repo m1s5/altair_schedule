@@ -4,19 +4,188 @@
       xsi:schemaLocation="http://thymeleaf.org ">
 <head>
     <meta charset="UTF-8"/>
+
+    <meta content="width=device-width, initial-sacale=1" name="viewport">
+    <link crossorigin="anonymous"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+          rel="stylesheet">
+    <script crossorigin="anonymous"
+            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+
+
     <title>Altair Schedule</title>
-    <link th:href="@{/styles/style.css}" rel="stylesheet"/>
+</head>
+
+
+<body style="height: 100%">
+
+<div class="container-fluid bg-info" style="height: 100%">
+    <header class="row">
+        <a class="btn btn-info" href="/login">Login</a><br>
+        <a class="btn btn-info" href="/logout">Logout</a>
+    </header>
+    <div class="container-fluid text-center col-3 col-offset-4"
+         style="background: white; padding: 70px; border-radius: 50px">
+        <h1>
+            новая заявка
+        </h1>
+        <div class="row justify-content-center ">
+            <form action="#" class="form-container" method="post" th:action="@{/user/requestLesson}"
+                  th:object="${request}">
+                <div class="form-group">
+                    <div class="row input-group-text">
+                        <label for="subject">
+                            название
+                        </label><input id="subject"
+                                       required
+                                       th:field="*{subject}"
+                                       type="text"/>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom: 0.9em">
+                    <div class="row input-group-select custom-select">
+                        <label for="domain">
+                            домены(Ctrl+ЛКМ)
+                        </label><select id="domain"
+                                        required
+                                        th:field="*{domain}">
+
+                        <option th:each="domain : ${domains}"
+                                th:text="${domain.domain}"
+                                th:value="${domain}">
+                        </option>
+                    </select>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom: 0.9em">
+                    <div class="row input-group-select custom-select">
+                        <label for="tutor">
+                            преподаватель
+                        </label><select id="tutor"
+                                        required
+                                        th:field="*{tutor}">
+
+                        <option th:each="tutor : ${tutors}"
+                                th:text="${tutor.name}"
+                                th:value="${tutor.name}">
+                        </option>
+                    </select>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom: 0.9em">
+                    <div class="row input-group-select custom-select">
+                        <label for="assistant">
+                            Ассистент
+                        </label><select id="assistant"
+                                        required
+                                        th:field="*{tutor}">
+
+                        <option th:each="assistant : ${assistants}"
+                                th:text="${assistant?.name}"
+                                th:value="${assistant?.name}">
+                        </option>
+                    </select>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom: 0.9em">
+                    <div class="row input-group-select custom-select">
+                        <label for="classroom">
+                            аудитория
+                        </label><select id="classroom"
+                                        required
+                                        th:field="*{classroom}">
+
+                        <option th:each="classroom : ${classrooms}"
+                                th:text="${classroom.classroom}"
+                                th:value="${classroom.classroom}">
+                        </option>
+                    </select>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 0.9em">
+                    <div class="row ">
+                        <label for="dateTime">
+                            время/дата
+                        </label> <input id="dateTime"
+                                        required
+                                        th:field="*{dateTime}"
+                                        th:max="${maxTime}"
+                                        th:min="${minTime}"
+                                        th:value="${minTime}"
+                                        type="datetime-local">
+
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 0.9em">
+                    <div class="row ">
+                        <label for="duration">
+                            длительность(45 мин.)
+                        </label> <input id="duration"
+                                        max="12"
+                                        min="1"
+                                        required
+                                        th:field="*{duration}"
+                                        type="number"
+                                        value="1"/>
+
+                    </div>
+                </div>
+
+                <div class="btn-group-vertical form-group input-group-btn row " style="width: 100%">
+                    <input class="btn btn-success btn-block" type="submit"/>
+                    <a class="btn btn-danger" href="#" onclick="history.back();">Назад</a>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+    <div class="align-text-bottom">
+        <div class="row">
+        </div>
+        <div class="row">
+            <a class="btn btn-info row" href="/">Расписание</a>
+        </div>
+        <div class="row">
+            <a class="btn btn-info row" href="/admin/manageLessons">Панель управления</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+
+<!-- <!DOCTYPE>
+
+<html lang="ru" xmlns:th="http://thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://thymeleaf.org ">
+<head>
+    <meta charset="UTF-8"/>
+
+    <meta name="viewport" content="width=device-width, initial-sacale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+
+
+    <title>Altair Schedule</title>
 </head>
 
 <header>
     <a style="text-align: right" href="/login">Login</a><br>
     <a style="text-align: right" href="/logout">Logout</a>
 </header>
-<body class="modal">
+<body>
 <h1>
     Новое занятие
 </h1>
-<form class="grid" action="#" th:action="@{/user/requestLesson}" method="post" th:object="${request}">
+<form action="#" th:action="@{/admin/addLesson}" method="post" th:object="${request}">
     <label for="subject">
         Предмет
     </label><input id="subject"
@@ -98,8 +267,8 @@
 
     <input type="submit"/>
 <br><br>
-    <a href="#" onclick="history.back();">Назад</a>
     <a href="/">Расписание</a>
+    <a href="#" onclick="history.back();">Назад</a>
 </form>
 </body>
-</html>
+</html> -->
