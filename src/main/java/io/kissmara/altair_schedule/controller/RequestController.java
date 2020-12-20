@@ -35,7 +35,7 @@ public class RequestController {
 
     @GetMapping("/")
     public String getSchedule(Model model){
-        {
+        /*{
             Tutor tutor = new Tutor();
             tutor.setName("Дмитрий Марач");
             tutorService.addTutor(tutor);
@@ -45,7 +45,7 @@ public class RequestController {
             Assistant assistant = new Assistant();
             assistant.setName("Добби");
             assistantService.addAssistant(assistant);
-        }
+        }*/
         List<Lesson> schedule = lessonService.getSchedule();
         schedule.sort(Comparator.comparing(Lesson::getDateTime));
         model.addAttribute("lessons", schedule);
@@ -86,9 +86,9 @@ public class RequestController {
         if(form.getLessons().stream().noneMatch(Lesson::getIsAccepted)) return "/manage/lesson/confirm/nothingToConfirm";
         List<Integer> failedList = lessonService.lessonTransactionByObject(form.getLessons());
         if(failedList.isEmpty())
-            return "/manage/lesson/confirm/okConfirm";
+            return "manage/lesson/confirm/okConfirm";
         model.addAttribute("failedList", failedList);
-        return "/manage/lesson/confirm/failedConfirm";
+        return "manage/lesson/confirm/failedConfirm";
     }
 
     @PostMapping("/admin/discardRequests")
@@ -99,7 +99,7 @@ public class RequestController {
         for(Lesson lesson: form.getLessons()){
             if(lesson.getIsNotActive()) lessonService.removeLesson(lesson);
         }
-            return "/manage/lesson/discard/okDiscard";
+            return "manage/lesson/discard/okDiscard";
     }
 
     @PostMapping("/admin/discardLessons")
@@ -109,7 +109,7 @@ public class RequestController {
         for(Lesson lesson: form.getLessons()){
             if(!lesson.getIsAccepted()) lessonService.addRequest(lesson);
         }
-            return "/manage/lesson/discard/okDiscard";
+            return "manage/lesson/discard/okDiscard";
     }
 
 

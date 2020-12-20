@@ -82,8 +82,9 @@ public class LessonService {
 
                 .anyMatch(lesson1 ->  lesson1.getClassroom().equals(lesson.getClassroom()) ||
                                     lesson1.getTutor().equals(lesson.getTutor())         ||
-                                   (lesson1.getAssistant().equals(lesson.getAssistant()) &&
-                                   !(lesson1.getAssistant() == null)));
+                                   ( !(lesson1.getAssistant() == null &&
+                                           lesson1.getAssistant().equals(lesson.getAssistant())
+                                   )));
     }
 
 }

@@ -42,7 +42,7 @@ public class ManageController {
 
         model.addAttribute("requests", requests);
         model.addAttribute("schedule", schedule);
-        return "/manage/manageLessons";
+        return "manage/manageLessons";
     }
 
     //TODO: дописать обработку файлов
@@ -50,7 +50,7 @@ public class ManageController {
     @PostMapping("/admin/manageLessons")
     public String confirmBaseSchedule(@RequestParam("baseSchedule") MultipartFile[] files){
         System.out.println(files.length);
-        return "/manage/manageLessons";
+        return "manage/manageLessons";
     }
 
     //TUTOR
