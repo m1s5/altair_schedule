@@ -3,214 +3,29 @@
   <ID>JAVA</ID>
   <OriginalElement>io.kissmara.altair_schedule</OriginalElement>
   <nodes>
-    <node x="1175.2313333333334" y="1766.0">io.kissmara.altair_schedule.AltairScheduleApplicationTests</node>
-    <node x="0.0" y="2075.0">io.kissmara.altair_schedule.controller.UserController</node>
-    <node x="524.5833333333334" y="1031.0">io.kissmara.altair_schedule.model.lesson.service.ClassroomService</node>
-    <node x="506.33333333333337" y="773.0">io.kissmara.altair_schedule.model.lesson.service.ClassroomRepository</node>
-    <node x="674.5833333333334" y="1601.0">io.kissmara.altair_schedule.controller.ManageController</node>
-    <node x="264.33333333333337" y="773.0">io.kissmara.altair_schedule.model.lesson.service.TutorRepository</node>
-    <node x="670.934" y="337.0">io.kissmara.altair_schedule.model.lesson.entities.Classroom</node>
-    <node x="286.58333333333337" y="1031.0">io.kissmara.altair_schedule.model.lesson.service.TutorService</node>
-    <node x="1052.5833333333335" y="1225.0">io.kissmara.altair_schedule.model.lesson.service.LessonService</node>
-    <node x="476.057" y="0.0">io.kissmara.altair_schedule.model.lesson.entities.Domain</node>
-    <node x="261.9813333333334" y="359.0">io.kissmara.altair_schedule.model.lesson.entities.Tutor</node>
-    <node x="53.33333333333337" y="1269.0">io.kissmara.altair_schedule.model.user.User</node>
-    <node x="1305.973" y="370.0">io.kissmara.altair_schedule.model.lesson.entities.Assistant</node>
-    <node x="1176.432" y="1088.0">io.kissmara.altair_schedule.model.lesson.service.LessonRepository</node>
-    <node x="1534.973" y="0.0">io.kissmara.altair_schedule.AltairScheduleApplication</node>
-    <node x="830.5833333333334" y="1042.0">io.kissmara.altair_schedule.model.lesson.LessonsDto</node>
-    <node x="1827.973" y="0.0">io.kissmara.altair_schedule.model.base_schedule.BaseScheduleDto</node>
-    <node x="934.682" y="595.0">io.kissmara.altair_schedule.model.lesson.entities.Lesson</node>
-    <node x="0.0" y="1800.5">io.kissmara.altair_schedule.model.user.UserRepository</node>
+    <node x="229.0" y="984.0">io.kissmara.altair_schedule.AltairScheduleApplicationTests</node>
+    <node x="926.0" y="1151.0">io.kissmara.altair_schedule.controller.UserController</node>
+    <node x="0.0" y="795.0">io.kissmara.altair_schedule.model.lesson.service.ClassroomService</node>
+    <node x="247.0" y="1151.0">io.kissmara.altair_schedule.model.lesson.service.ClassroomRepository</node>
+    <node x="0.0" y="0.0">io.kissmara.altair_schedule.controller.ManageController</node>
+    <node x="713.0" y="1151.0">io.kissmara.altair_schedule.model.lesson.service.TutorRepository</node>
+    <node x="621.0" y="474.0">io.kissmara.altair_schedule.model.lesson.entities.Classroom</node>
+    <node x="319.0" y="795.0">io.kissmara.altair_schedule.model.lesson.service.TutorService</node>
+    <node x="556.0" y="0.0">io.kissmara.altair_schedule.model.lesson.entities.Domain</node>
+    <node x="0.0" y="474.0">io.kissmara.altair_schedule.model.lesson.service.LessonService</node>
+    <node x="582.0" y="795.0">io.kissmara.altair_schedule.model.lesson.entities.Tutor</node>
+    <node x="388.0" y="474.0">io.kissmara.altair_schedule.model.user.User</node>
+    <node x="0.0" y="984.0">io.kissmara.altair_schedule.model.lesson.entities.Assistant</node>
+    <node x="492.0" y="1151.0">io.kissmara.altair_schedule.model.lesson.service.LessonRepository</node>
+    <node x="870.0" y="984.0">io.kissmara.altair_schedule.AltairScheduleApplication</node>
+    <node x="792.0" y="795.0">io.kissmara.altair_schedule.model.lesson.LessonsDto</node>
+    <node x="0.0" y="1151.0">io.kissmara.altair_schedule.model.base_schedule.BaseScheduleDto</node>
+    <node x="562.0" y="984.0">io.kissmara.altair_schedule.model.user.UserRepository</node>
+    <node x="325.0" y="0.0">io.kissmara.altair_schedule.model.lesson.entities.Lesson</node>
   </nodes>
   <notes />
-  <edges>
-    <edge source="io.kissmara.altair_schedule.model.lesson.service.LessonService" target="io.kissmara.altair_schedule.model.lesson.service.LessonRepository">
-      <point x="85.75" y="-138.0" />
-      <point x="1309.8333333333335" y="1200.0" />
-      <point x="1264.432" y="1200.0" />
-      <point x="0.0" y="15.0" />
-    </edge>
-    <edge source="io.kissmara.altair_schedule.model.lesson.entities.Lesson" target="io.kissmara.altair_schedule.model.lesson.entities.Classroom">
-      <point x="-23.25" y="-193.0" />
-      <point x="1004.432" y="545.0" />
-      <point x="838.3340000000001" y="545.0" />
-      <point x="74.39999999999998" y="94.0" />
-    </edge>
-    <edge source="io.kissmara.altair_schedule.model.lesson.entities.Tutor" target="io.kissmara.altair_schedule.model.lesson.entities.Domain">
-      <point x="-41.25" y="-72.0" />
-      <point x="303.2313333333334" y="307.0" />
-      <point x="519.807" y="307.0" />
-      <point x="-43.75" y="138.5" />
-    </edge>
-    <edge source="io.kissmara.altair_schedule.model.lesson.service.TutorService" target="io.kissmara.altair_schedule.model.lesson.service.TutorRepository">
-      <point x="-54.5" y="-72.0" />
-      <point x="341.08333333333337" y="1011.0" />
-      <point x="348.33333333333337" y="1011.0" />
-      <point x="0.0" y="15.0" />
-    </edge>
-    <edge source="io.kissmara.altair_schedule.controller.ManageController" target="io.kissmara.altair_schedule.model.user.User">
-      <point x="-131.25" y="-214.5" />
-      <point x="683.3333333333334" y="1581.0" />
-      <point x="133.33333333333337" y="1581.0" />
-      <point x="0.0" y="94.0" />
-    </edge>
-    <edge source="io.kissmara.altair_schedule.model.lesson.entities.Classroom" target="io.kissmara.altair_schedule.model.lesson.entities.Domain">
-      <point x="-46.5" y="-94.0" />
-      <point x="717.434" y="317.0" />
-      <point x="578.1403333333334" y="317.0" />
-      <point x="14.583333333333371" y="138.5" />
-    </edge>
-    <edge source="io.kissmara.altair_schedule.model.lesson.service.LessonRepository" target="io.kissmara.altair_schedule.model.lesson.entities.Lesson">
-      <point x="0.0" y="-15.0" />
-      <point x="1264.432" y="1001.0" />
-      <point x="1105.182" y="1001.0" />
-      <point x="77.5" y="193.0" />
-    </edge>
-    <edge source="io.kissmara.altair_schedule.model.lesson.service.LessonService" target="io.kissmara.altair_schedule.model.lesson.entities.Lesson">
-      <point x="-85.75" y="-138.0" />
-      <point x="1138.3333333333335" y="1200.0" />
-      <point x="1165.932" y="1200.0" />
-      <point x="1165.932" y="1011.0" />
-      <point x="1074.182" y="1011.0" />
-      <point x="46.5" y="193.0" />
-    </edge>
-    <edge source="io.kissmara.altair_schedule.model.lesson.entities.Lesson" target="io.kissmara.altair_schedule.model.lesson.entities.Assistant">
-      <point x="69.75" y="-193.0" />
-      <point x="1097.432" y="575.0" />
-      <point x="1336.6396666666667" y="575.0" />
-      <point x="-61.33333333333326" y="61.0" />
-    </edge>
-    <edge source="io.kissmara.altair_schedule.model.lesson.service.TutorService" target="io.kissmara.altair_schedule.model.lesson.entities.Tutor">
-      <point x="54.5" y="-72.0" />
-      <point x="450.08333333333337" y="1011.0" />
-      <point x="442.83333333333337" y="1011.0" />
-      <point x="442.83333333333337" y="575.0" />
-      <point x="377.4813333333334" y="575.0" />
-      <point x="33.0" y="72.0" />
-    </edge>
-    <edge source="io.kissmara.altair_schedule.controller.ManageController" target="io.kissmara.altair_schedule.model.lesson.entities.Tutor">
-      <point x="-61.25" y="-214.5" />
-      <point x="753.3333333333334" y="1541.0" />
-      <point x="253.83333333333337" y="1541.0" />
-      <point x="253.83333333333337" y="575.0" />
-      <point x="311.4813333333334" y="575.0" />
-      <point x="-33.0" y="72.0" />
-    </edge>
-    <edge source="io.kissmara.altair_schedule.model.user.UserRepository" target="io.kissmara.altair_schedule.model.user.User">
-      <point x="0.0" y="-15.0" />
-      <point x="-53.33333333333334" y="94.0" />
-    </edge>
-    <edge source="io.kissmara.altair_schedule.model.lesson.service.ClassroomService" target="io.kissmara.altair_schedule.model.lesson.entities.Classroom">
-      <point x="68.5" y="-72.0" />
-      <point x="730.0833333333334" y="1011.0" />
-      <point x="716.8333333333334" y="1011.0" />
-      <point x="716.8333333333334" y="575.0" />
-      <point x="726.734" y="575.0" />
-      <point x="-37.19999999999999" y="94.0" />
-    </edge>
-    <edge source="io.kissmara.altair_schedule.controller.ManageController" target="io.kissmara.altair_schedule.model.lesson.service.LessonService">
-      <point x="96.25" y="-214.5" />
-      <point x="910.8333333333334" y="1561.0" />
-      <point x="1109.75" y="1561.0" />
-      <point x="-114.33333333333326" y="138.0" />
-    </edge>
-    <edge source="io.kissmara.altair_schedule.controller.ManageController" target="io.kissmara.altair_schedule.model.lesson.service.TutorService">
-      <point x="-43.75" y="-214.5" />
-      <point x="770.8333333333334" y="1531.0" />
-      <point x="395.58333333333337" y="1531.0" />
-      <point x="0.0" y="72.0" />
-    </edge>
-    <edge source="io.kissmara.altair_schedule.controller.ManageController" target="io.kissmara.altair_schedule.model.lesson.service.ClassroomService">
-      <point x="-26.25" y="-214.5" />
-      <point x="788.3333333333334" y="1521.0" />
-      <point x="661.5833333333334" y="1521.0" />
-      <point x="0.0" y="72.0" />
-    </edge>
-    <edge source="io.kissmara.altair_schedule.model.lesson.service.ClassroomRepository" target="io.kissmara.altair_schedule.model.lesson.entities.Classroom">
-      <point x="5.6843418860808015E-14" y="-15.0" />
-      <point x="606.3333333333335" y="575.0" />
-      <point x="689.5340000000001" y="575.0" />
-      <point x="-74.39999999999998" y="94.0" />
-    </edge>
-    <edge source="io.kissmara.altair_schedule.model.lesson.entities.Lesson" target="io.kissmara.altair_schedule.model.lesson.entities.Tutor">
-      <point x="-69.75" y="-193.0" />
-      <point x="957.932" y="555.0" />
-      <point x="410.4813333333334" y="555.0" />
-      <point x="66.0" y="72.0" />
-    </edge>
-    <edge source="io.kissmara.altair_schedule.controller.ManageController" target="io.kissmara.altair_schedule.model.lesson.LessonsDto">
-      <point x="43.75" y="-214.5" />
-      <point x="858.3333333333334" y="1531.0" />
-      <point x="922.182" y="1531.0" />
-      <point x="922.182" y="1200.0" />
-      <point x="973.0833333333334" y="1200.0" />
-      <point x="47.5" y="61.0" />
-    </edge>
-    <edge source="io.kissmara.altair_schedule.controller.ManageController" target="io.kissmara.altair_schedule.model.lesson.entities.Lesson">
-      <point x="78.75" y="-214.5" />
-      <point x="893.3333333333334" y="1551.0" />
-      <point x="1042.0833333333335" y="1551.0" />
-      <point x="1042.0833333333335" y="1011.0" />
-      <point x="1043.182" y="1011.0" />
-      <point x="15.5" y="193.0" />
-    </edge>
-    <edge source="io.kissmara.altair_schedule.model.lesson.entities.Lesson" target="io.kissmara.altair_schedule.model.lesson.entities.Domain">
-      <point x="23.25" y="-193.0" />
-      <point x="1050.932" y="297.0" />
-      <point x="636.4736666666668" y="297.0" />
-      <point x="72.91666666666674" y="138.5" />
-    </edge>
-    <edge source="io.kissmara.altair_schedule.controller.ManageController" target="io.kissmara.altair_schedule.model.lesson.entities.Classroom">
-      <point x="-8.75" y="-214.5" />
-      <point x="805.8333333333334" y="1581.0" />
-      <point x="809.0833333333334" y="1581.0" />
-      <point x="809.0833333333334" y="575.0" />
-      <point x="763.934" y="575.0" />
-      <point x="0.0" y="94.0" />
-    </edge>
-    <edge source="io.kissmara.altair_schedule.model.lesson.service.TutorRepository" target="io.kissmara.altair_schedule.model.lesson.entities.Tutor">
-      <point x="0.0" y="-15.0" />
-      <point x="348.33333333333337" y="575.0" />
-      <point x="344.4813333333334" y="575.0" />
-      <point x="0.0" y="72.0" />
-    </edge>
-    <edge source="io.kissmara.altair_schedule.AltairScheduleApplicationTests" target="io.kissmara.altair_schedule.model.lesson.service.LessonService">
-      <point x="-72.0" y="-49.5" />
-      <point x="1247.2313333333334" y="1561.0" />
-      <point x="1224.0833333333335" y="1561.0" />
-      <point x="0.0" y="138.0" />
-    </edge>
-    <edge source="io.kissmara.altair_schedule.model.lesson.service.ClassroomService" target="io.kissmara.altair_schedule.model.lesson.service.ClassroomRepository">
-      <point x="-68.5" y="-72.0" />
-      <point x="593.0833333333334" y="1011.0" />
-      <point x="606.3333333333334" y="1011.0" />
-      <point x="0.0" y="15.0" />
-    </edge>
-    <edge source="io.kissmara.altair_schedule.controller.ManageController" target="io.kissmara.altair_schedule.model.lesson.entities.Domain">
-      <point x="-96.25" y="-214.5" />
-      <point x="718.3333333333334" y="1561.0" />
-      <point x="223.83333333333337" y="1561.0" />
-      <point x="223.83333333333337" y="297.0" />
-      <point x="490.6403333333334" y="297.0" />
-      <point x="-72.91666666666663" y="138.5" />
-    </edge>
-    <edge source="io.kissmara.altair_schedule.controller.ManageController" target="io.kissmara.altair_schedule.model.lesson.entities.Assistant">
-      <point x="113.75" y="-214.5" />
-      <point x="928.3333333333334" y="1571.0" />
-      <point x="1407.25" y="1571.0" />
-      <point x="1407.25" y="575.0" />
-      <point x="1397.973" y="575.0" />
-      <point x="0.0" y="61.0" />
-    </edge>
-    <edge source="io.kissmara.altair_schedule.model.lesson.LessonsDto" target="io.kissmara.altair_schedule.model.lesson.entities.Lesson">
-      <point x="-47.5" y="-61.0" />
-      <point x="878.0833333333334" y="1011.0" />
-      <point x="950.182" y="1011.0" />
-      <point x="-77.5" y="193.0" />
-    </edge>
-  </edges>
-  <settings layout="Hierarchic Group" zoom="0.9618072890664003" x="897.0236179600312" y="1668.8655593044382" />
+  <edges />
+  <settings layout="Hierarchic Group" zoom="0.7352941176470589" x="2205.96" y="911.6" />
   <SelectedNodes />
   <Categories>
     <Category>Fields</Category>
